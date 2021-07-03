@@ -1,0 +1,30 @@
+$selector: '.vote-list';
+
+#{$selector} {
+  &__list {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &--horizontal {
+    margin: 0 -4px;
+
+    #{$selector}__item {
+      display: inline;
+      margin: 0 4px;
+    }
+  }
+
+  &--vertical {
+    margin: -4px 0;
+
+    #{$selector}__item {
+      display: block;
+      margin: 4px 0;
+    }
+  }
+}
