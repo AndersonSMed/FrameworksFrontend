@@ -11,7 +11,7 @@ function Result(props) {
     <div className="result">
       <ol className="result__list">
         {votes.map((vote) => (
-          <li className="result__list-item">
+          <li key={vote.option} className="result__list-item">
             {`${vote.option} - ${vote.count} votes (${getVotePercentage(vote.count)})`}
           </li>
         ))}
