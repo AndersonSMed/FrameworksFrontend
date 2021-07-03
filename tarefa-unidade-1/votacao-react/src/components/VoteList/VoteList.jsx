@@ -26,7 +26,7 @@ function VoteList(props) {
     >
       <ul className="vote-list__list">
         {options.map((option) => (
-          <li key={option} className="vote-list__item">
+          <li key={option} className="vote-list__list-item">
             <Button
               text={option}
               onClick={onSelectVote(option)}

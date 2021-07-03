@@ -6,14 +6,14 @@ $selector: '.vote-list';
     padding: 0;
   }
 
-  &__item {
+  &__list-item {
     list-style: none;
   }
 
   &--horizontal {
     margin: 0 -4px;
 
-    #{$selector}__item {
+    #{$selector}__list-item {
       display: inline;
       margin: 0 4px;
     }
@@ -22,7 +22,7 @@ $selector: '.vote-list';
   &--vertical {
     margin: -4px 0;
 
-    #{$selector}__item {
+    #{$selector}__list-item {
       display: block;
       margin: 4px 0;
     }

@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import './Result.scss';
 
+function calculatePercentage(target, total) {
+  return `${((target / total) * 100).toFixed(0)}%`;
+}
+
 function Result(props) {
   const { votes } = props;
-  const totalCount = votes.reduce((acc, { count }) => acc + count, 0);
+  const totalVotes = votes.reduce((acc, { count }) => acc + count, 0);
 
-  const getVotePercentage = (votesCount) => `${((votesCount / totalCount) * 100).toFixed(0)}%`;
+  const getVotePercentage = (votesCount) => calculatePercentage(votesCount, totalVotes);
 
   return (
     <div className="result">
