@@ -8,18 +8,15 @@ function VotingCard(props) {
   const { title, state, votes } = props;
 
   const isVotingEnabled = state === 'open';
-  const votingOptions = votes.map(item => item.option);
+  const votingOptions = votes.map((item) => item.option);
 
   const [currentVotes, setCurrentVotes] = useState(votes);
 
-  const onVote = selectedVote => {
-    setCurrentVotes(previousVotes => {
-      return previousVotes.map(item => item.option === selectedVote
-        ? { ...item, count: item.count + 1 }
-        : item
-      )
-    })
-  }
+  const onVote = (selectedVote) => {
+    setCurrentVotes((previousVotes) => previousVotes.map((item) => (item.option === selectedVote
+      ? { ...item, count: item.count + 1 }
+      : item)));
+  };
 
   return (
     <div className="voting-card">
@@ -27,7 +24,7 @@ function VotingCard(props) {
         <>
           <h3 className="voting-card__title">{title}</h3>
           <div className="voting-card__cabinet">
-            <VoteList options={votingOptions} onVote={onVote}/>
+            <VoteList options={votingOptions} onVote={onVote} />
           </div>
         </>
       ) : (
@@ -42,14 +39,14 @@ VotingCard.propTypes = {
   state: PropTypes.oneOf(['open', 'closed']),
   votes: PropTypes.arrayOf(PropTypes.shape({
     option: PropTypes.string,
-    count: PropTypes.number
-  }))
-}
+    count: PropTypes.number,
+  })),
+};
 
 VotingCard.defaultProps = {
   title: '',
   state: 'open',
-  votes: []
-}
+  votes: [],
+};
 
 export default VotingCard;

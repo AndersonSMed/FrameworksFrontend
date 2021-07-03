@@ -2,7 +2,7 @@ import { VoteList } from '../components';
 
 export default {
   title: 'Molecules/VoteList',
-  component: VoteList
+  component: VoteList,
 };
 
 const Template = (args) => <VoteList {...args} />;
@@ -14,8 +14,8 @@ HorizontalList.args = {
   options: [
     'Yes',
     'No',
-    'Maybe'
-  ]
+    'Maybe',
+  ],
 };
 
 export const VerticalList = Template.bind({});
@@ -25,8 +25,8 @@ VerticalList.args = {
   options: [
     'Yes',
     'No',
-    'Maybe'
-  ]
+    'Maybe',
+  ],
 };
 
 export const DisabledList = Template.bind({});
@@ -36,6 +36,6 @@ DisabledList.args = {
   options: [
     'Yes',
     'No',
-    'Maybe'
-  ]
+    'Maybe',
+  ],
 };

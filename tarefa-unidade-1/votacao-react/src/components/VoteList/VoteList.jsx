@@ -5,11 +5,13 @@ import Button from '../Button/Button';
 import './VoteList.scss';
 
 function VoteList(props) {
-  const { options, display, disabled, onVote } = props;
+  const {
+    options, display, disabled, onVote,
+  } = props;
 
   const [selectedVote, setSelectedVote] = useState(null);
 
-  const onSelectVote = selectedOption => () => {
+  const onSelectVote = (selectedOption) => () => {
     setSelectedVote(selectedOption);
     onVote(selectedOption);
   };
@@ -18,18 +20,19 @@ function VoteList(props) {
     <div className={classNames(
       'vote-list', {
         'vote-list--horizontal': display === 'horizontal',
-        'vote-list--vertical': display === 'vertical'
-      }
-    )}>
-      <ul className='vote-list__list'>
-        {options.map(option => (
-          <li key={option} className='vote-list__item'>
+        'vote-list--vertical': display === 'vertical',
+      },
+    )}
+    >
+      <ul className="vote-list__list">
+        {options.map((option) => (
+          <li key={option} className="vote-list__item">
             <Button
               text={option}
               onClick={onSelectVote(option)}
               disabled={disabled}
               selected={selectedVote === option}
-            ></Button>
+            />
           </li>
         ))}
       </ul>
@@ -41,14 +44,14 @@ VoteList.propTypes = {
   disabled: PropTypes.bool,
   display: PropTypes.oneOf(['horizontal', 'vertical']),
   options: PropTypes.arrayOf(PropTypes.string),
-  onVote: PropTypes.func
-}
+  onVote: PropTypes.func,
+};
 
 VoteList.defaultProps = {
   disabled: false,
   display: 'horizontal',
   options: [],
-  onVote: () => {}
-}
+  onVote: () => {},
+};
 
 export default VoteList;

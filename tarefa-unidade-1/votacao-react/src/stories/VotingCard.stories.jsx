@@ -2,7 +2,7 @@ import { VotingCard } from '../components';
 
 export default {
   title: 'Organisms/VotingCard',
-  component: VotingCard
+  component: VotingCard,
 };
 
 const Template = (args) => <VotingCard {...args} />;
@@ -14,17 +14,17 @@ OpenVotingCard.args = {
   votes: [
     {
       option: 'Yes',
-      count: 30
+      count: 30,
     },
     {
       option: 'No',
-      count: 1
+      count: 1,
     },
     {
       option: 'I do not know :(',
-      count: 10
-    }
-  ]
+      count: 10,
+    },
+  ],
 };
 
 export const ClosedVotingCard = Template.bind({});
@@ -34,15 +34,15 @@ ClosedVotingCard.args = {
   votes: [
     {
       option: 'Yes',
-      count: 30
+      count: 30,
     },
     {
       option: 'No',
-      count: 1
+      count: 1,
     },
     {
       option: 'I do not know :(',
-      count: 10
-    }
-  ]
+      count: 10,
+    },
+  ],
 };

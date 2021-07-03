@@ -5,14 +5,14 @@ function Result(props) {
   const { votes } = props;
   const totalCount = votes.reduce((acc, { count }) => acc + count, 0);
 
-  const getVotePercentage = votesCount => `${((votesCount / totalCount) * 100).toFixed(0)}%` 
+  const getVotePercentage = (votesCount) => `${((votesCount / totalCount) * 100).toFixed(0)}%`;
 
   return (
     <div className="result">
       <ol className="result__list">
-        {votes.map(vote => (
+        {votes.map((vote) => (
           <li className="result__list-item">
-            {vote.option} - {vote.count} votes ({getVotePercentage(vote.count)})
+            {`${vote.option} - ${vote.count} votes (${getVotePercentage(vote.count)})`}
           </li>
         ))}
       </ol>
@@ -23,12 +23,12 @@ function Result(props) {
 Result.propTypes = {
   votes: PropTypes.arrayOf(PropTypes.shape({
     option: PropTypes.string,
-    count: PropTypes.number
-  }))
-}
+    count: PropTypes.number,
+  })),
+};
 
 Result.defaultProps = {
-  votes: []
-}
+  votes: [],
+};
 
 export default Result;
