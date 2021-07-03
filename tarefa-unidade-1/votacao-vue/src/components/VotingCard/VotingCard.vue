@@ -20,39 +20,43 @@ export default {
   props: {
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     state: {
       type: String,
-      default: 'open'
+      default: 'open',
     },
     votes: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  data: function() {
+  data() {
     return {
-      currentVotes: this.votes
-    }
+      currentVotes: this.votes,
+    };
   },
   methods: {
-    onVote: function(selectedOption) {
-      this.currentVotes = this.currentVotes.map((item) =>
-        (item.option === selectedOption ? { ...item, count: item.count + 1 } : item)
-      )
-    }
+    onVote(selectedOption) {
+      this.currentVotes = this.currentVotes.map(
+        (item) => (
+          item.option === selectedOption
+            ? { ...item, count: item.count + 1 }
+            : item
+        ),
+      );
+    },
   },
   computed: {
-    isVotingEnabled: function() {
+    isVotingEnabled() {
       return this.state === 'open';
     },
-    votingOptions: function() {
-      return this.votes.map(vote => vote.option);
-    }
+    votingOptions() {
+      return this.votes.map((vote) => vote.option);
+    },
   },
-  components: { VoteList, Result }
-}
+  components: { VoteList, Result },
+};
 </script>
 
 <style lang="scss">
