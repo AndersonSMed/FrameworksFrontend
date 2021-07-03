@@ -17,6 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint --config .eslintrc.json .",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
@@ -55,6 +56,12 @@
     "@storybook/addon-links": "^6.3.2",
     "@storybook/node-logger": "^6.3.2",
     "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.3.2"
+    "@storybook/react": "^6.3.2",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }
