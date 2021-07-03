@@ -1,39 +1,38 @@
-import MyButton from './Button.vue';
+import { SimpleButton } from '../components';
 
 export default {
-  title: 'Example/Button',
-  component: MyButton,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-    size: { control: { type: 'select', options: ['small', 'medium', 'large'] } },
-  },
+  title: 'Atoms/SimpleButton',
+  component: SimpleButton,
+  // argTypes: {
+  //   backgroundColor: { control: 'color' },
+  //   size: { control: { type: 'select', options: ['small', 'medium', 'large'] } },
+  // },
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { MyButton },
-  template: '<my-button @onClick="onClick" v-bind="$props" />',
+  components: { SimpleButton },
+  template: '<simple-button v-bind="$props" />',
 });
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Button',
+export const DefaultButton = Template.bind({});
+DefaultButton.args = {
+  text: 'Default Button',
+  selected: false,
+  disabled: false,
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
+export const SelectedButton = Template.bind({});
+SelectedButton.args = {
+  text: 'Selected Button',
+  selected: true,
+  disabled: false,
 };
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
+export const DisabledButton = Template.bind({});
+DisabledButton.args = {
+  text: 'Selected Button',
+  selected: false,
+  disabled: true,
 };
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
-};
