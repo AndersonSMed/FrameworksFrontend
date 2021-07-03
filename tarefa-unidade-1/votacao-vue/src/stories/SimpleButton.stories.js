@@ -3,10 +3,6 @@ import { SimpleButton } from '../components';
 export default {
   title: 'Atoms/SimpleButton',
   component: SimpleButton,
-  // argTypes: {
-  //   backgroundColor: { control: 'color' },
-  //   size: { control: { type: 'select', options: ['small', 'medium', 'large'] } },
-  // },
 };
 
 const Template = (args, { argTypes }) => ({
@@ -35,4 +31,3 @@ DisabledButton.args = {
   selected: false,
   disabled: true,
 };
-
