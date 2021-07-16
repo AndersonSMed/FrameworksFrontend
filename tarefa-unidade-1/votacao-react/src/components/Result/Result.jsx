@@ -4,7 +4,6 @@ import './Result.scss';
 function calculatePercentage(target, total) {
   return `${((target / total) * 100).toFixed(0)}%`;
 }
-
 function Result(props) {
   const { votes } = props;
   const totalVotes = votes.reduce((acc, { count }) => acc + count, 0);
