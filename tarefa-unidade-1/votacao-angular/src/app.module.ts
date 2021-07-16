@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
+import { Button, Result, VoteList } from './components';
 
 @NgModule({
   declarations: [
-    AppComponent
+    Button,
+    Result,
+    VoteList
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
