@@ -5,11 +5,15 @@
             "name": "VoteInterface",
             "id": "interface-VoteInterface-6565851f96af00a9c27c7259ad36d646",
             "file": "src/components/sharedInterfaces.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
             "type": "interface",
             "sourceCode": "interface VoteInterface {\n  option: String,\n  count: number\n}\n\nexport { VoteInterface }",
             "properties": [
                 {
                     "name": "count",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "number",
                     "optional": false,
                     "description": "",
@@ -17,6 +21,8 @@
                 },
                 {
                     "name": "option",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "String",
                     "optional": false,
                     "description": "",
@@ -24,11 +30,13 @@
                 }
             ],
             "indexSignatures": [],
-            "kind": 150,
+            "kind": 163,
             "methods": []
         }
     ],
     "injectables": [],
+    "guards": [],
+    "interceptors": [],
     "classes": [],
     "directives": [],
     "components": [
@@ -53,18 +61,24 @@
                 {
                     "name": "disabled",
                     "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 20,
                     "type": "Boolean"
                 },
                 {
                     "name": "selected",
                     "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 17,
                     "type": "Boolean"
                 },
                 {
                     "name": "text",
                     "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 23,
                     "type": "String"
                 }
@@ -73,16 +87,20 @@
                 {
                     "name": "onClick",
                     "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 26,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [],
             "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'simple-button',\n  template: `<button\n      type=\"button\"\n      (click)=\"onClick.emit($event)\"\n      [disabled]=\"disabled\"\n      [ngClass]=\"classes\"\n    >\n      {{ text }}\n    </button>`,\n  styleUrls: ['./Button.scss'],\n})\nexport default class ButtonComponent {\n  @Input()\n  selected: Boolean = false;\n\n  @Input()\n  disabled: Boolean = false;\n\n  @Input()\n  text: String = '';\n\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): Object {\n    return {\n      'btn': true,\n      'btn--selected': (this.selected && !this.disabled)\n    };\n  }\n}\n",
             "assetsDirs": [],
@@ -126,6 +144,8 @@
                 {
                     "name": "votes",
                     "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 21,
                     "type": "Array<VoteInterface>"
                 }
@@ -138,20 +158,26 @@
                     "args": [
                         {
                             "name": "vote",
-                            "type": "VoteInterface"
+                            "type": "VoteInterface",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "String",
                     "typeParameters": [],
                     "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "modifierKind": [
-                        114
+                        122
                     ],
                     "jsdoctags": [
                         {
                             "name": "vote",
                             "type": "VoteInterface",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -163,20 +189,26 @@
                     "args": [
                         {
                             "name": "votesCount",
-                            "type": "number"
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "String",
                     "typeParameters": [],
                     "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "modifierKind": [
-                        112
+                        120
                     ],
                     "jsdoctags": [
                         {
                             "name": "votesCount",
                             "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -184,10 +216,12 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { Component, Input } from '@angular/core';\nimport { VoteInterface } from '../sharedInterfaces';\n\nfunction calculatePercentage(target: number, total: number): String {\n  return `${((target / total) * 100).toFixed(0)}%`;\n}\n\n@Component({\n  selector: 'result',\n  template: `<div class=\"result\">\n    <ol class=\"result__list\">\n      <li *ngFor=\"let vote of votes\" class=\"result__list-item\">\n        {{getVoteMessage(vote)}}\n      </li>\n    </ol>\n  </div>`,\n  styleUrls: ['./Result.scss'],\n})\nexport default class ResultComponent {\n  @Input()\n  votes: Array<VoteInterface> = [];\n\n  private get totalVotes(): number {\n    return this.votes.reduce((acc, { count }) => acc + count, 0);\n  }\n\n  private getVotePercentage(votesCount: number): String {\n    return calculatePercentage(votesCount, this.totalVotes);\n  }\n\n  public getVoteMessage(vote: VoteInterface): String {\n    return `${vote.option} - ${vote.count} votes (${this.getVotePercentage(vote.count)})`;\n  }\n}\n",
             "assetsDirs": [],
@@ -231,18 +265,24 @@
                 {
                     "name": "disabled",
                     "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 24,
                     "type": "Boolean"
                 },
                 {
                     "name": "display",
                     "defaultValue": "'horizontal'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 21,
                     "type": "String"
                 },
                 {
                     "name": "options",
                     "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 27,
                     "type": "Array<String>"
                 }
@@ -251,6 +291,8 @@
                 {
                     "name": "onVote",
                     "defaultValue": "new EventEmitter<String>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 30,
                     "type": "EventEmitter"
                 }
@@ -259,12 +301,14 @@
                 {
                     "name": "selectedVote",
                     "defaultValue": "\"\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "String",
                     "optional": false,
                     "description": "",
                     "line": 32,
                     "modifierKind": [
-                        114
+                        122
                     ]
                 }
             ],
@@ -274,20 +318,26 @@
                     "args": [
                         {
                             "name": "selectedOption",
-                            "type": "String"
+                            "type": "String",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 34,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "modifierKind": [
-                        114
+                        122
                     ],
                     "jsdoctags": [
                         {
                             "name": "selectedOption",
                             "type": "String",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -295,10 +345,12 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'vote-list',\n  template: `<div [ngClass]=\"classes\">\n    <ul class=\"vote-list__list\">\n      <li *ngFor=\"let option of options\" class=\"vote-list__list-item\">\n        <simple-button\n          (onClick)=\"onSelectVote(option)\"\n          [selected]=\"selectedVote === option\"\n          [disabled]=\"disabled\"\n          [text]=\"option\"\n        ></simple-button> \n      </li>\n    </ul>\n  </div>`,\n  styleUrls: ['./VoteList.scss'],\n})\nexport default class VoteListComponent {\n  @Input()\n  display: String = 'horizontal';\n\n  @Input()\n  disabled: Boolean = false;\n\n  @Input()\n  options: Array<String> = [];\n\n  @Output()\n  onVote = new EventEmitter<String>();\n\n  public selectedVote: String = \"\";\n\n  public onSelectVote(selectedOption: String): void {\n    this.selectedVote = selectedOption;\n    this.onVote.emit(selectedOption);\n  }\n\n  public get classes(): Object {\n    return {\n      'vote-list': true,\n      'vote-list--horizontal': this.display === 'horizontal',\n      'vote-list--vertical': this.display === 'vertical'\n    }\n  }\n}\n",
             "assetsDirs": [],
@@ -323,7 +375,7 @@
         },
         {
             "name": "VotingCardComponent",
-            "id": "component-VotingCardComponent-8fdf62c593d73a6fcc02a4dbfd53df16",
+            "id": "component-VotingCardComponent-0f01bf64c91a90584671249f1240f5d4",
             "file": "src/components/VotingCard/VotingCard.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -342,18 +394,24 @@
                 {
                     "name": "state",
                     "defaultValue": "'open'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 21,
                     "type": "String"
                 },
                 {
                     "name": "title",
                     "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 24,
                     "type": "String"
                 },
                 {
                     "name": "votes",
                     "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 27,
                     "type": "Array<VoteInterface>"
                 }
@@ -363,35 +421,71 @@
                 {
                     "name": "currentVotes",
                     "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Array<VoteInterface>",
                     "optional": false,
                     "description": "",
-                    "line": 37,
+                    "line": 39,
                     "modifierKind": [
-                        114
+                        122
                     ]
                 }
             ],
             "methodsClass": [
                 {
-                    "name": "onSelectVote",
+                    "name": "ngOnChanges",
                     "args": [
                         {
-                            "name": "selectedVote",
-                            "type": "String"
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 39,
+                    "line": 29,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onSelectVote",
+                    "args": [
+                        {
+                            "name": "selectedVote",
+                            "type": "String",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 41,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "modifierKind": [
-                        114
+                        122
                     ],
                     "jsdoctags": [
                         {
                             "name": "selectedVote",
                             "type": "String",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -399,12 +493,14 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from \"@angular/core\";\nimport { VoteInterface } from \"../sharedInterfaces\";\n\n@Component({\n  selector: 'voting-card',\n  template: `<div class=\"voting-card\">\n    <ng-template [ngIf]=\"state === 'open'\">\n      <h3 class=\"voting-card__title\">{{title}}</h3>\n      <div class=\"voting-card__cabinet\">\n        <vote-list [options]=\"votingOptions\" (onVote)=\"onSelectVote($event)\"></vote-list>\n      </div>\n    </ng-template>\n    <ng-template [ngIf]=\"state === 'closed'\">\n      <result [votes]=\"currentVotes\"></result>\n    </ng-template>\n  </div>`,\n  styleUrls: ['./VotingCard.scss'],\n})\nexport default class VotingCardComponent {\n  @Input()\n  state: String = 'open';\n\n  @Input()\n  title: String = '';\n\n  @Input()\n  votes: Array<VoteInterface> = [];\n\n  constructor() {\n    this.currentVotes = this.votes;\n  }\n\n  public get votingOptions(): Array<String> {\n    return this.votes.map(item => item.option);\n  }\n\n  public currentVotes: Array<VoteInterface> = [];\n\n  public onSelectVote(selectedVote: String): void {\n    this.currentVotes = this.currentVotes.map(\n      (item) => (\n        item.option === selectedVote\n          ? { ...item, count: item.count + 1 }\n          : item\n      )\n    )\n  }\n}",
+            "sourceCode": "import { Component, Input, OnChanges, SimpleChanges } from \"@angular/core\";\nimport { VoteInterface } from \"../sharedInterfaces\";\n\n@Component({\n  selector: 'voting-card',\n  template: `<div class=\"voting-card\">\n    <ng-template [ngIf]=\"state === 'open'\">\n      <h3 class=\"voting-card__title\">{{title}}</h3>\n      <div class=\"voting-card__cabinet\">\n        <vote-list [options]=\"votingOptions\" (onVote)=\"onSelectVote($event)\"></vote-list>\n      </div>\n    </ng-template>\n    <ng-template [ngIf]=\"state === 'closed'\">\n      <result [votes]=\"currentVotes\"></result>\n    </ng-template>\n  </div>`,\n  styleUrls: ['./VotingCard.scss'],\n})\nexport default class VotingCardComponent implements OnChanges {\n  @Input()\n  state: String = 'open';\n\n  @Input()\n  title: String = '';\n\n  @Input()\n  votes: Array<VoteInterface> = [];\n\n  ngOnChanges(changes: SimpleChanges) {\n    if (changes.votes) {\n      this.currentVotes = changes.votes.currentValue;\n    }\n  };\n\n  public get votingOptions(): Array<String> {\n    return this.votes.map(item => item.option);\n  }\n\n  public currentVotes: Array<VoteInterface> = [];\n\n  public onSelectVote(selectedVote: String): void {\n    this.currentVotes = this.currentVotes.map(\n      (item) => (\n        item.option === selectedVote\n          ? { ...item, count: item.count + 1 }\n          : item\n      )\n    )\n  }\n}",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -413,12 +509,9 @@
                 }
             ],
             "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [],
-                "line": 27
-            },
+            "implements": [
+                "OnChanges"
+            ],
             "accessors": {
                 "votingOptions": {
                     "name": "votingOptions",
@@ -426,7 +519,7 @@
                         "name": "votingOptions",
                         "type": "",
                         "returnType": "Array<String>",
-                        "line": 33
+                        "line": 35
                     }
                 }
             }
@@ -435,6 +528,13 @@
     "modules": [
         {
             "name": "AppModule",
+            "id": "module-AppModule-217301f9c5e64276e70504842399a99c",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\nimport { Button, Result, VoteList } from './components';\n\n@NgModule({\n  declarations: [\n    Button,\n    Result,\n    VoteList\n  ],\n  imports: [\n    BrowserModule\n  ],\n})\nexport class AppModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -480,6 +580,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/VotingCard.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -488,6 +590,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
             },
@@ -496,6 +600,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -504,6 +610,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/Result.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -512,6 +620,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -520,6 +630,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/VoteList.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -528,6 +640,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  production: true\n}"
             },
@@ -536,6 +650,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  production: false\n}"
             },
@@ -544,6 +660,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/VoteList.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -552,6 +670,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/VotingCard.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -560,6 +680,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "literal type"
             },
             {
@@ -567,6 +689,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -575,6 +699,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<Button>",
                 "defaultValue": "(args: Button) => ({\n  props: args,\n})"
             },
@@ -583,6 +709,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/Result.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<Result>",
                 "defaultValue": "(args: Result) => ({\n  props: args,\n})"
             },
@@ -591,6 +719,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/VoteList.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<VoteList>",
                 "defaultValue": "(args: VoteList) => ({\n  props: args,\n})"
             },
@@ -599,6 +729,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/VotingCard.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<VotingCard>",
                 "defaultValue": "(args: VotingCard) => ({\n  props: args,\n})"
             },
@@ -607,6 +739,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/VoteList.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             }
@@ -617,25 +751,35 @@
                 "file": "src/components/Result/Result.component.ts",
                 "ctype": "miscellaneous",
                 "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "description": "",
                 "args": [
                     {
-                        "name": "target"
+                        "name": "target",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     },
                     {
-                        "name": "total"
+                        "name": "total",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
                 "returnType": "String",
                 "jsdoctags": [
                     {
                         "name": "target",
+                        "deprecated": false,
+                        "deprecationMessage": "",
                         "tagName": {
                             "text": "param"
                         }
                     },
                     {
                         "name": "total",
+                        "deprecated": false,
+                        "deprecationMessage": "",
                         "tagName": {
                             "text": "param"
                         }
@@ -652,6 +796,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/VotingCard.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -660,6 +806,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/VotingCard.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -668,6 +816,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/VotingCard.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<VotingCard>",
                     "defaultValue": "(args: VotingCard) => ({\n  props: args,\n})"
                 }
@@ -678,6 +828,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
                 },
@@ -686,6 +838,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "literal type"
                 }
             ],
@@ -695,6 +849,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -703,6 +859,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -711,6 +869,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -719,6 +879,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<Button>",
                     "defaultValue": "(args: Button) => ({\n  props: args,\n})"
                 }
@@ -729,6 +891,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/Result.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -737,6 +901,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/Result.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<Result>",
                     "defaultValue": "(args: Result) => ({\n  props: args,\n})"
                 }
@@ -747,6 +913,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/VoteList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -755,6 +923,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/VoteList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -763,6 +933,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/VoteList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<VoteList>",
                     "defaultValue": "(args: VoteList) => ({\n  props: args,\n})"
                 },
@@ -771,6 +943,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/VoteList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 }
@@ -781,6 +955,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  production: true\n}"
                 }
@@ -791,6 +967,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  production: false\n}"
                 }
@@ -803,25 +981,35 @@
                     "file": "src/components/Result/Result.component.ts",
                     "ctype": "miscellaneous",
                     "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "description": "",
                     "args": [
                         {
-                            "name": "target"
+                            "name": "target",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         },
                         {
-                            "name": "total"
+                            "name": "total",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "returnType": "String",
                     "jsdoctags": [
                         {
                             "name": "target",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
                         },
                         {
                             "name": "total",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -859,6 +1047,7 @@
             {
                 "filePath": "src/components/Result/Result.component.ts",
                 "type": "function",
+                "linktype": "miscellaneous",
                 "linksubtype": "function",
                 "name": "calculatePercentage",
                 "coveragePercent": 0,
