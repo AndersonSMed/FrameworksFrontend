@@ -34,7 +34,24 @@
 </script>
 
 <style lang="scss">
-  @import './VotingCard.scss';
+  $selector: '.voting-card';
+
+  #{$selector} {
+    background-color: lightblue;
+    border: 1px solid blue;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    width: 100%;
+
+    &__title {
+      margin: 0;
+    }
+
+    &__cabinet {
+      padding-top: 8px;
+    }
+  }
 </style>
 
 <div class="voting-card">

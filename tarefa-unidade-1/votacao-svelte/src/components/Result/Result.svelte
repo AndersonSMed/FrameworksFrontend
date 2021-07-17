@@ -19,7 +19,21 @@
 </script>
 
 <style lang="scss">
-  @import './Result.scss';
+  $selector: '.result';
+
+  #{$selector} {
+    margin: -4px 0;
+    
+    &__list {
+      margin: 0;
+      padding: 0;
+      list-style-position: inside;
+    }
+
+    &__list-item {
+      margin: 4px 0;
+    }
+  }
 </style>
 
 <div class="result">

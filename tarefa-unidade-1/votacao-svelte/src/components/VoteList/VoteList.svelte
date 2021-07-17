@@ -17,7 +17,36 @@
 </script>
 
 <style lang="scss">
-  @import './VoteList.scss';
+  $selector: '.vote-list';
+
+  #{$selector} {
+    &__list {
+      margin: 0;
+      padding: 0;
+    }
+
+    &__list-item {
+      list-style: none;
+    }
+
+    &--horizontal {
+      margin: 0 -4px;
+
+      #{$selector}__list-item {
+        display: inline;
+        margin: 0 4px;
+      }
+    }
+
+    &--vertical {
+      margin: -4px 0;
+
+      #{$selector}__list-item {
+        display: block;
+        margin: 4px 0;
+      }
+    }
+  }
 </style>
 
 <div

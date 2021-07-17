@@ -13,7 +13,15 @@
 </script>
 
 <style lang="scss">
-  @import './Button.scss';
+  $selector: '.btn';
+
+  #{$selector} {
+    transition: all 0.2s;
+
+    &--selected {
+      box-shadow: 0px 0px 3px 1px #999;
+    }
+  }
 </style>
 
 <button
