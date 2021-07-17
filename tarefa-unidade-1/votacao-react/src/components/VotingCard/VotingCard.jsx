@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import VoteList from '../VoteList/VoteList';
 import Result from '../Result/Result';
@@ -11,6 +11,8 @@ function VotingCard(props) {
   const votingOptions = votes.map((item) => item.option);
 
   const [currentVotes, setCurrentVotes] = useState(votes);
+
+  useEffect(() => setCurrentVotes(votes), [votes]);
 
   const onVote = (selectedVote) => {
     setCurrentVotes((previousVotes) => previousVotes.map((item) => (item.option === selectedVote

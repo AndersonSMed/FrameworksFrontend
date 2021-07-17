@@ -1,14 +1,12 @@
 <script>
   import VoteList from '../VoteList/VoteList.svelte';
   import Result from '../Result/Result.svelte';
-
+  
   export let state = 'open';
   export let title = '';
   export let votes = [];
 
-  let previousVotes = null;
-
-  let currentVotes = null;
+  let currentVotes = votes;
 
   function getVotingOptions() {
     return votes.map(item => item.option);
@@ -24,13 +22,6 @@
     )
   }
 
-  $: {
-    if (previousVotes !== votes) {
-      currentVotes = votes;
-      previousVotes = votes;
-      console.log(votes, currentVotes, previousVotes)
-    }
-  }
 </script>
 
 <style lang="scss">

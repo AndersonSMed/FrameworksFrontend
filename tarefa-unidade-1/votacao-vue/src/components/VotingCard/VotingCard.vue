@@ -55,6 +55,11 @@ export default {
       return this.votes.map((vote) => vote.option);
     },
   },
+  watch: {
+    votes: function (val) {
+      this.currentVotes = val;
+    }
+  },
   components: { VoteList, Result },
 };
 </script>

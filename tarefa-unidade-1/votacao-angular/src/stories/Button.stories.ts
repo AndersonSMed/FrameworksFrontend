@@ -32,7 +32,7 @@ SelectedButton.args = {
 
 export const DisabledButton = Template.bind({});
 DisabledButton.args = {
-  text: 'Selected Button',
+  text: 'Disabled Button',
   selected: false,
   disabled: true,
 };
