@@ -103,3 +103,7 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
+
+## Chromatic Link
+
+[Click here](https://www.chromatic.com/start?inviteToken=7fa642eddc954d5aa0ea4c1bae252b7b&appId=60f32c2522be8e003938dffe) to access the Storybook in chromatic.

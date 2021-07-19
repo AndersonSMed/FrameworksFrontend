@@ -68,3 +68,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Chromatic Link
+
+[Click here](https://www.chromatic.com/start?inviteToken=31a3f9475edf4746b1020ebdf8125a47&appId=60f320c070fd860039dbcb29) to access the Storybook in chromatic.

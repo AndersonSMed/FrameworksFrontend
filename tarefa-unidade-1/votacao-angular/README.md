@@ -25,3 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Chromatic Link
+
+[Click here](https://www.chromatic.com/start?inviteToken=65028a740bc84bb5a1d8a9d6f0f5b3fa&appId=60f323ab22be8e003938dd51) to access the Storybook in chromatic.
