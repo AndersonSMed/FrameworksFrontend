@@ -53,5 +53,6 @@
 }
 
 .product-form button:disabled {
+  cursor: revert;
   opacity: 0.1;
 }

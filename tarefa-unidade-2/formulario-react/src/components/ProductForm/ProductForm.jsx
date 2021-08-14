@@ -1,8 +1,11 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react'; 
 import './ProductForm.css';
 import { useYup } from './validators';
 
-export default function ProductForm() {
+function ProductForm(props) {
+  const { price, imageSrc, title, description, onSave } = props;
+
   const schema = useYup({
     title: {
       type: 'text',
@@ -20,10 +23,7 @@ export default function ProductForm() {
   });
   
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    price: 0,
-    imageSrc: ''
+    price, imageSrc, title, description
   });
   const [error, setError] = useState(null);
 
@@ -43,7 +43,13 @@ export default function ProductForm() {
   }, [schema, formData]);
 
   return (
-    <form className="product-form">
+    <form
+      className="product-form"
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSave(formData);
+      }}
+    >
       <label>
         Title
         <input
@@ -112,3 +118,21 @@ export default function ProductForm() {
     </form>
   );
 }
+
+ProductForm.propTypes = {
+  price: PropTypes.number,
+  imageSrc: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  onSave: PropTypes.func
+}
+
+ProductForm.defaultProps = {
+  price: 0,
+  imageSrc: '',
+  title: '',
+  description: '',
+  onSave: () => {}
+}
+
+export default ProductForm;
