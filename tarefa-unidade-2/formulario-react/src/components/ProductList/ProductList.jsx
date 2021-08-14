@@ -11,10 +11,19 @@ function insertIdentifier(data) {
 function ProductList(props) {
   const { products } = props;
   const [currentProducts, setCurrentProducts] = useState(products.map(insertIdentifier));
+  const updateProduct = productUuid => data => setCurrentProducts(
+    previousProducts => previousProducts.map(product => {
+      if (product.uuid === productUuid)
+        return { ...product, ...data };
+      return product;
+    })
+  )
 
   return (
     <div className="product-list">
-      {currentProducts.map(product => <EditableProduct key={product.uuid} {...product} />)}
+      {currentProducts.map(
+        product => <EditableProduct key={product.uuid} {...product} onSave={updateProduct(product.uuid)} />
+      )}
     </div>
   );
 }
