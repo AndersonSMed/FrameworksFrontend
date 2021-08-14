@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './ProductDetails.css';
 
 function formatPrice(price) {
-  const parsedPrice = parseFloat(price);
+  const parsedPrice = parseFloat(price.toString());
   return `R$ ${parsedPrice.toFixed(2)}`;
 }
 
