@@ -12,26 +12,26 @@ function ProductDetails(props) {
 
   return (
     <div className="product-details">
-      <div className="product-details--body">
-        <div className="product-details--image-container">
+      <div className="product-details__body">
+        <div className="product-details__image-container">
           {!imageSrc ? (
             'No image'
           ) : (
             <img
               alt="Product"
-              className="product-details--image"
+              className="product-details__image"
               src={imageSrc}
             />
           )}
-          <span className="product-details--price">
+          <span className="product-details__price">
             {formatPrice(price)}
           </span>
         </div>
-        <h3 className="product-details--title">{title}</h3>
-        <h4 className="product-details--description">{description}</h4>
+        <h3 className="product-details__title">{title}</h3>
+        <h4 className="product-details__description">{description}</h4>
       </div>
-      <div className="product-details--footer">
-        <button className="product-details--buy-button">Buy Now</button>
+      <div className="product-details__footer">
+        <button className="product-details__buy-button">Buy Now</button>
       </div>
     </div>
   );

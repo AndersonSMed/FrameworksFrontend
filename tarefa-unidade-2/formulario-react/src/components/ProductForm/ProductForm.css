@@ -25,6 +25,18 @@
   padding: 4px 8px;
 }
 
+.product-form__error-message {
+  color: #ff0000;
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: lighter;
+  margin-top: 4px;
+}
+
+.product-form__error-message::before {
+  content: 'This ';
+}
+
 .product-form button {
   all: unset;
   background: #88d498;
@@ -38,4 +50,8 @@
   padding: 8px 16px;
   text-align: center;
   width: 100%;
+}
+
+.product-form button:disabled {
+  opacity: 0.1;
 }
