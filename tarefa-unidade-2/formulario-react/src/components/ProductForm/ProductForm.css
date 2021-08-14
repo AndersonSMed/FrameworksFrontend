@@ -1,3 +1,6 @@
+
+@import '../Base.css';
+
 .product-form {
   border-radius: 5px;
   box-shadow: 0px 0px 1px 1px #808080;
@@ -35,24 +38,4 @@
 
 .product-form__error-message::before {
   content: 'This ';
-}
-
-.product-form button {
-  all: unset;
-  background: #88d498;
-  box-sizing: border-box;
-  border-radius: 5px;
-  box-shadow: 0px 0px 1px 1px #808080;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 8px;
-  padding: 8px 16px;
-  text-align: center;
-  width: 100%;
-}
-
-.product-form button:disabled {
-  cursor: revert;
-  opacity: 0.1;
 }

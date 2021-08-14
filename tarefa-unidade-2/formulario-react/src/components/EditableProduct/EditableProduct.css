@@ -1,0 +1,12 @@
+@import '../Base.css';
+
+.editable-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min-content;
+}
+
+.editable-product > button {
+  margin-bottom: 16px;
+}

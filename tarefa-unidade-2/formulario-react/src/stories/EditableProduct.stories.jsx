@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { ProductDetails } from '../components';
+import { EditableProduct } from '../components';
 
 export default {
-  title: 'Examples/ProductDetails',
-  component: ProductDetails
+  title: 'Examples/EditableProduct',
+  component: EditableProduct
 };
 
-const Template = (args) => <ProductDetails {...args} />;
+const Template = (args) => <EditableProduct {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
@@ -15,12 +15,6 @@ Basic.args = {
   imageSrc: 'https://images-americanas.b2w.io/produtos/180303340/imagens/iwo-8-lite-prata-relogio-smartwatch-bluetooth-notificacoes-para-ios-e-android/180303340_1_large.jpg',
   title: 'Smart Watch',
   description: 'This is a nice smart watch used to monitor your life',
+  onSave: () => {}
 };
 
-export const WithoutImage = Template.bind({});
-WithoutImage.args = {
-  price: 2000,
-  imageSrc: '',
-  title: 'Freezer',
-      description: 'This is a freezer to keep your foods cold',
-};

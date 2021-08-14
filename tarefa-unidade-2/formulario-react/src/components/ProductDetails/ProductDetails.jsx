@@ -31,7 +31,7 @@ function ProductDetails(props) {
         <h4 className="product-details__description">{description}</h4>
       </div>
       <div className="product-details__footer">
-        <button className="product-details__buy-button">Buy Now</button>
+        <button>Buy Now</button>
       </div>
     </div>
   );
