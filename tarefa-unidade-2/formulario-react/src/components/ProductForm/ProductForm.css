@@ -1,0 +1,41 @@
+.product-form {
+  border-radius: 5px;
+  box-shadow: 0px 0px 1px 1px #808080;
+  padding: 32px;
+  width: 300px;
+}
+
+.product-form label,
+.product-form input,
+.product-form textarea {
+  display: block;
+}
+
+.product-form label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.product-form input,
+.product-form textarea {
+  box-sizing: border-box;
+  margin-top: 4px;
+  max-width: 100%;
+  min-width: 100%;
+  padding: 4px 8px;
+}
+
+.product-form button {
+  all: unset;
+  background: #88d498;
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1px 1px #808080;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 8px;
+  padding: 8px 16px;
+  text-align: center;
+  width: 100%;
+}
