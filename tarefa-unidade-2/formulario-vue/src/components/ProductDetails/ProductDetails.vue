@@ -31,12 +31,28 @@ import './ProductDetails.css';
 
 export default {
   name: 'product-details',
-  props: [
-    'imageSrc',
-    'price',
-    'title',
-    'description'
-  ],
+  props: {
+    imageSrc: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    title: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    description: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    price: {
+      type: Number,
+      required: true,
+      default: 0
+    }
+  },
   setup(props) {
     return {
       formattedPrice: computed(() => {
