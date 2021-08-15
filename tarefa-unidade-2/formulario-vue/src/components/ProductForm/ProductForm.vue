@@ -1,7 +1,7 @@
 <template>
   <form
     class="product-form"
-    @submit.prevent="onSave()"
+    @submit.prevent="onSave"
   >
     <label>
       Title
@@ -139,7 +139,7 @@ export default {
         return;
       },
       onSave() {
-        emit('save');
+        emit('save', state.formData);
       }
     }
   }
