@@ -110,6 +110,164 @@
             "templateData": "<div>To run this app, use storybook</div>"
         },
         {
+            "name": "EditableProductComponent",
+            "id": "component-EditableProductComponent-44fdba857dd9f53cd35fe84c16ded25f",
+            "file": "src/components/EditableProduct/EditableProduct.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "editable-product",
+            "styleUrls": [
+                "./EditableProduct.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./EditableProduct.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "description",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 20,
+                    "type": "String"
+                },
+                {
+                    "name": "imageSrc",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 14,
+                    "type": "String | undefined"
+                },
+                {
+                    "name": "price",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 11,
+                    "type": "Number"
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 17,
+                    "type": "String"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onSave",
+                    "defaultValue": "new EventEmitter<IProduct>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 23,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "isEditing",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 25,
+                    "modifierKind": [
+                        122
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onSaveProduct",
+                    "args": [
+                        {
+                            "name": "newData",
+                            "type": "IProduct",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        122
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "newData",
+                            "type": "IProduct",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setIsEditing",
+                    "args": [
+                        {
+                            "name": "isEditing",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        122
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "isEditing",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from \"@angular/core\";\nimport { IProduct } from \"../interfaces\";\n\n@Component({\n  selector: 'editable-product',\n  templateUrl: './EditableProduct.html',\n  styleUrls: ['./EditableProduct.css']\n})\nexport default class EditableProductComponent {\n  @Input()\n  price: Number = 0;\n\n  @Input()\n  imageSrc: String | undefined;\n\n  @Input()\n  title: String = '';\n\n  @Input()\n  description: String = '';\n\n  @Output()\n  onSave = new EventEmitter<IProduct>();\n\n  public isEditing = false;\n\n  public setIsEditing(isEditing: boolean) {\n    this.isEditing = isEditing;\n  }\n\n  public onSaveProduct(newData: IProduct) {\n    this.setIsEditing(false);\n    this.onSave.emit(newData);\n  }\n};",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "@import '../Base.css';\n\n.editable-product {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  width: min-content;\n}\n\n.editable-product > button {\n  margin-bottom: 16px;\n}\n",
+                    "styleUrl": "./EditableProduct.css"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<div className=\"editable-product\">\n  <ng-template [ngIf]=\"isEditing\">\n    <product-form\n      [price]=\"price\"\n      [imageSrc]=\"imageSrc\"\n      [title]=\"title\"\n      [description]=\"description\"\n      (onSave)=\"onSaveProduct($event)\"\n    />\n  </ng-template>\n  <ng-template [ngIf]=\"!isEditing\">\n    <button (click)=\"setIsEditing(true)\">\n      Click here to edit\n    </button>\n    <product-details\n      [price]=\"price\"\n      [imageSrc]=\"imageSrc\"\n      [title]=\"title\"\n      [description]=\"description\"\n    />\n  </ng-template>\n</div>"
+        },
+        {
             "name": "ProductDetailsComponent",
             "id": "component-ProductDetailsComponent-c9823c50b5f97be4b2282619ca1e1c2c",
             "file": "src/components/ProductDetails/ProductDetails.component.ts",
@@ -215,7 +373,7 @@
         },
         {
             "name": "ProductFormComponent",
-            "id": "component-ProductFormComponent-d63106225b3fd3c9430ad496ed90c66d",
+            "id": "component-ProductFormComponent-05b8d9a23025cc9f455fbf70ec411caf",
             "file": "src/components/ProductForm/ProductForm.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -348,20 +506,7 @@
                 },
                 {
                     "name": "handleFormChange",
-                    "args": [
-                        {
-                            "name": "field",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        },
-                        {
-                            "name": "event",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
+                    "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
@@ -370,57 +515,6 @@
                     "deprecationMessage": "",
                     "modifierKind": [
                         122
-                    ],
-                    "jsdoctags": [
-                        {
-                            "name": "field",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "event",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "handleFormChanges",
-                    "args": [
-                        {
-                            "name": "newFormData",
-                            "type": "IProduct",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 57,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "modifierKind": [
-                        120
-                    ],
-                    "jsdoctags": [
-                        {
-                            "name": "newFormData",
-                            "type": "IProduct",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
                     ]
                 },
                 {
@@ -450,6 +544,37 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "onSubmit",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 59,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        122
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
@@ -459,7 +584,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from \"@angular/core\";\nimport { IProduct } from \"../interfaces\";\nimport { useYup } from './validators';\n\n@Component({\n  selector: 'product-form',\n  templateUrl: './ProductForm.html',\n  styleUrls: ['./ProductForm.css']\n})\nexport default class ProductFormComponent implements OnChanges{\n  @Input()\n  price: Number = 0;\n\n  @Input()\n  imageSrc: String | undefined;\n\n  @Input()\n  title: String = '';\n\n  @Input()\n  description: String = '';\n\n  @Output()\n  onSave = new EventEmitter<IProduct>();\n\n  public formData: IProduct;\n\n  private error: String | undefined = '';\n\n  private schema = useYup({\n    title: {\n      type: 'text',\n      required: true \n    },\n    description: {\n      type: 'text',\n      required: true \n    },\n    price: {\n      type: 'number',\n      required: true \n    },\n    imageSrc: { type: 'url' }\n  });\n\n  public getError(field: string) {\n    if (this.error && this.error.startsWith(field))\n      return this.error.split(' ').slice(1).join(' ');\n    return;\n  }\n\n  public handleFormChange(field: string, event: any) {\n    console.log(field, event);\n    this.formData = Object.assign({}, { ...this.formData, [field]: event.target.value });\n  }\n\n  private handleFormChanges(newFormData: IProduct) {\n    this.schema\n      .validate(newFormData)\n      .then(() => this.error = undefined)\n      .catch((err) => this.error = err && err.message);\n  }\n\n  constructor() {\n    this.formData = {\n      price: this.price,\n      imageSrc: this.imageSrc,\n      title: this.title,\n      description: this.description\n    }\n  }\n\n  ngOnChanges(changes: SimpleChanges) {\n    if (changes.price)\n      this.formData.price = changes.price.currentValue;\n    if (changes.imageSrc)\n      this.formData.imageSrc = changes.imageSrc.currentValue;\n    if (changes.title)\n      this.formData.title = changes.title.currentValue;\n    if (changes.description)\n      this.formData.description = changes.description.currentValue;\n    if (changes.formData)\n      this.handleFormChanges(changes.formData.currentValue);\n  }\n}",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from \"@angular/core\";\nimport { IProduct } from \"../interfaces\";\nimport { useYup } from './validators';\n\n@Component({\n  selector: 'product-form',\n  templateUrl: './ProductForm.html',\n  styleUrls: ['./ProductForm.css']\n})\nexport default class ProductFormComponent implements OnChanges{\n  @Input()\n  price: Number = 0;\n\n  @Input()\n  imageSrc: String | undefined;\n\n  @Input()\n  title: String = '';\n\n  @Input()\n  description: String = '';\n\n  @Output()\n  onSave = new EventEmitter<IProduct>();\n\n  public formData: IProduct;\n\n  private error: String | undefined = '';\n\n  private schema = useYup({\n    title: {\n      type: 'text',\n      required: true \n    },\n    description: {\n      type: 'text',\n      required: true \n    },\n    price: {\n      type: 'number',\n      required: true \n    },\n    imageSrc: { type: 'url' }\n  });\n\n  public getError(field: string) {\n    if (this.error && this.error.startsWith(field))\n      return this.error.split(' ').slice(1).join(' ');\n    return;\n  }\n\n  public handleFormChange() {\n    this.schema\n      .validate(this.formData)\n      .then(() => this.error = undefined)\n      .catch((err) => this.error = err && err.message);\n  }\n\n  public onSubmit(event: Event) {\n    event.preventDefault();\n    this.onSave.emit(this.formData);\n  }\n\n  constructor() {\n    this.formData = {\n      price: this.price,\n      imageSrc: this.imageSrc,\n      title: this.title,\n      description: this.description\n    }\n  }\n\n  ngOnChanges(changes: SimpleChanges) {\n    if (changes.price)\n      this.formData.price = changes.price.currentValue;\n    if (changes.imageSrc)\n      this.formData.imageSrc = changes.imageSrc.currentValue;\n    if (changes.title)\n      this.formData.title = changes.title.currentValue;\n    if (changes.description)\n      this.formData.description = changes.description.currentValue;\n  }\n}",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -479,7 +604,7 @@
             "implements": [
                 "OnChanges"
             ],
-            "templateData": "<form\n  class=\"product-form\"\n  (submit)=\"onSubmit($event)\"\n>\n  <label>\n    Title\n    <input\n      [value]=\"formData.title\"\n      (ngModelChange)=\"handleFormChange('title', $event)\"\n      name=\"title\"\n      placeholder=\"Smart Watch\"\n    />\n    <ng-template [ngIf]=\"getError('title')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('title') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Description\n    <textarea\n      [value]=\"formData.description\"\n      (ngModelChange)=\"handleFormChange('description', $event)\"\n      name=\"description\"\n      placeholder=\"This is a nice smart watch used to monitor your life\"\n    ></textarea>\n    <ng-template [ngIf]=\"getError('description')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('description') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Price\n    <input\n      [value]=\"formData.price\"\n      (ngModelChange)=\"handleFormChange('price', $event)\"\n      name=\"price\"\n      type=\"number\"\n      placeholder=\"99.99\"\n    />\n    <ng-template [ngIf]=\"getError('price')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('price') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Image URL\n    <input\n      [value]=\"formData.imageSrc\"\n      (ngModelChange)=\"handleFormChange('imageSrc', $event)\"\n      name=\"imageSrc\"\n      type=\"url\"\n      placeholder=\"http://image.jpg\"\n    />\n    <ng-template [ngIf]=\"getError('imageSrc')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('imageSrc') }}\n      </span>\n    </ng-template>\n  </label>\n  <button type=\"submit\" [disabled]=\"!!error\">\n    Save Changes\n  </button>\n</form>"
+            "templateData": "<form\n  class=\"product-form\"\n  (submit)=\"onSubmit($event)\"\n>\n  <label>\n    Title\n    <input\n      [(ngModel)]=\"formData.title\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"title\"\n      placeholder=\"Smart Watch\"\n    />\n    <ng-template [ngIf]=\"getError('title')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('title') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Description\n    <textarea\n      [(ngModel)]=\"formData.description\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"description\"\n      placeholder=\"This is a nice smart watch used to monitor your life\"\n    ></textarea>\n    <ng-template [ngIf]=\"getError('description')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('description') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Price\n    <input\n      [(ngModel)]=\"formData.price\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"price\"\n      type=\"number\"\n      placeholder=\"99.99\"\n    />\n    <ng-template [ngIf]=\"getError('price')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('price') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Image URL\n    <input\n      [(ngModel)]=\"formData.imageSrc\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"imageSrc\"\n      type=\"url\"\n      placeholder=\"http://image.jpg\"\n    />\n    <ng-template [ngIf]=\"getError('imageSrc')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('imageSrc') }}\n      </span>\n    </ng-template>\n  </label>\n  <button type=\"submit\" [disabled]=\"!!error\">\n    Save Changes\n  </button>\n</form>"
         }
     ],
     "modules": [
@@ -530,6 +655,16 @@
     ],
     "miscellaneous": {
         "variables": [
+            {
+                "name": "Basic",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/EditableProduct.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
             {
                 "name": "Basic",
                 "ctype": "miscellaneous",
@@ -588,6 +723,16 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/EditableProduct.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<EditableProduct>",
+                "defaultValue": "(args: EditableProduct) => ({\n  props: args,\n})"
             },
             {
                 "name": "Template",
@@ -691,6 +836,28 @@
         "typealiases": [],
         "enumerations": [],
         "groupedVariables": {
+            "src/stories/EditableProduct.stories.ts": [
+                {
+                    "name": "Basic",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/EditableProduct.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/EditableProduct.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<EditableProduct>",
+                    "defaultValue": "(args: EditableProduct) => ({\n  props: args,\n})"
+                }
+            ],
             "src/stories/ProductDetails.stories.ts": [
                 {
                     "name": "Basic",
@@ -881,6 +1048,15 @@
                 "status": "low"
             },
             {
+                "filePath": "src/components/EditableProduct/EditableProduct.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "EditableProductComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
                 "filePath": "src/components/ProductDetails/ProductDetails.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -953,6 +1129,26 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/EditableProduct.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Basic",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/EditableProduct.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

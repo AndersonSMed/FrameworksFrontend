@@ -1,0 +1,22 @@
+<div class="editable-product">
+  <ng-template [ngIf]="isEditing">
+    <product-form
+      [price]="price"
+      [imageSrc]="imageSrc"
+      [title]="title"
+      [description]="description"
+      (onSave)="onSaveProduct($event)"
+    ></product-form>
+  </ng-template>
+  <ng-template [ngIf]="!isEditing">
+    <button (click)="setIsEditing(true)">
+      Click here to edit
+    </button>
+    <product-details
+      [price]="price"
+      [imageSrc]="imageSrc"
+      [title]="title"
+      [description]="description"
+    ></product-details>
+  </ng-template>
+</div>

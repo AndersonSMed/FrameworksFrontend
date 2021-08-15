@@ -56,6 +56,11 @@ export default class ProductFormComponent implements OnChanges{
       .catch((err) => this.error = err && err.message);
   }
 
+  public onSubmit(event: Event) {
+    event.preventDefault();
+    this.onSave.emit(this.formData);
+  }
+
   constructor() {
     this.formData = {
       price: this.price,
