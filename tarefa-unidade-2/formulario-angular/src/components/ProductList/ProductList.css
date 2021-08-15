@@ -1,0 +1,11 @@
+@import '../Base.css';
+
+.product-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.product-list > div {
+  margin: 16px;
+}

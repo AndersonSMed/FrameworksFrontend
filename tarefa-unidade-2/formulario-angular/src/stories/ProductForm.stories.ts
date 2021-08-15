@@ -1,8 +1,8 @@
 // also exported from '@storybook/angular' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
-import { ProductForm } from '../components';
 import { FormsModule }   from '@angular/forms';
+import { ProductForm } from '../components';
 
 export default {
   title: 'Examples/ProductForm',

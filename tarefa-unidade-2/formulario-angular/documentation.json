@@ -2,6 +2,30 @@
     "pipes": [],
     "interfaces": [
         {
+            "name": "IKeyedProduct",
+            "id": "interface-IKeyedProduct-03d5f2ed893b991a10b9e0913065d615",
+            "file": "src/components/ProductList/ProductList.service.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { v4 as uuid } from \"uuid\";\nimport { IProduct } from \"../interfaces\";\n\ninterface IKeyedProduct extends IProduct {\n  uuid: String\n}\n\n@Injectable(({ providedIn: 'root' }))\nexport class ProductListService {\n  private products: Array<IKeyedProduct> = [];\n  \n  get currentProducts(): Array<IKeyedProduct> {\n    return this.products;\n  }\n\n  setProducts(newProducts: Array<IProduct>) {\n    this.products = newProducts.map(product => ({ ...product, uuid: uuid() }));\n  }\n\n  updateProduct(productUUID: String, newData: IProduct) {\n    this.products = this.products.map(product => {\n      if (product.uuid === productUUID)\n        return { ...product, ...newData };\n      return product;\n    })\n  }\n}",
+            "properties": [
+                {
+                    "name": "uuid",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "String",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 163,
+            "methods": [],
+            "extends": "IProduct"
+        },
+        {
             "name": "IProduct",
             "id": "interface-IProduct-78da31b61f67a83ea7d6a473f61ec3ed",
             "file": "src/components/interfaces.ts",
@@ -52,7 +76,118 @@
             "methods": []
         }
     ],
-    "injectables": [],
+    "injectables": [
+        {
+            "name": "ProductListService",
+            "id": "injectable-ProductListService-03d5f2ed893b991a10b9e0913065d615",
+            "file": "src/components/ProductList/ProductList.service.ts",
+            "properties": [
+                {
+                    "name": "products",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Array<IKeyedProduct>",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "modifierKind": [
+                        120
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "setProducts",
+                    "args": [
+                        {
+                            "name": "newProducts",
+                            "type": "Array<IProduct>",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "newProducts",
+                            "type": "Array<IProduct>",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateProduct",
+                    "args": [
+                        {
+                            "name": "productUUID",
+                            "type": "String",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "newData",
+                            "type": "IProduct",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "productUUID",
+                            "type": "String",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "newData",
+                            "type": "IProduct",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { v4 as uuid } from \"uuid\";\nimport { IProduct } from \"../interfaces\";\n\ninterface IKeyedProduct extends IProduct {\n  uuid: String\n}\n\n@Injectable(({ providedIn: 'root' }))\nexport class ProductListService {\n  private products: Array<IKeyedProduct> = [];\n  \n  get currentProducts(): Array<IKeyedProduct> {\n    return this.products;\n  }\n\n  setProducts(newProducts: Array<IProduct>) {\n    this.products = newProducts.map(product => ({ ...product, uuid: uuid() }));\n  }\n\n  updateProduct(productUUID: String, newData: IProduct) {\n    this.products = this.products.map(product => {\n      if (product.uuid === productUUID)\n        return { ...product, ...newData };\n      return product;\n    })\n  }\n}",
+            "accessors": {
+                "currentProducts": {
+                    "name": "currentProducts",
+                    "getSignature": {
+                        "name": "currentProducts",
+                        "type": "",
+                        "returnType": "Array<IKeyedProduct>",
+                        "line": 13
+                    }
+                }
+            },
+            "type": "injectable"
+        }
+    ],
     "guards": [],
     "interceptors": [],
     "classes": [],
@@ -265,7 +400,7 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<div className=\"editable-product\">\n  <ng-template [ngIf]=\"isEditing\">\n    <product-form\n      [price]=\"price\"\n      [imageSrc]=\"imageSrc\"\n      [title]=\"title\"\n      [description]=\"description\"\n      (onSave)=\"onSaveProduct($event)\"\n    />\n  </ng-template>\n  <ng-template [ngIf]=\"!isEditing\">\n    <button (click)=\"setIsEditing(true)\">\n      Click here to edit\n    </button>\n    <product-details\n      [price]=\"price\"\n      [imageSrc]=\"imageSrc\"\n      [title]=\"title\"\n      [description]=\"description\"\n    />\n  </ng-template>\n</div>"
+            "templateData": "<div class=\"editable-product\">\n  <ng-template [ngIf]=\"isEditing\">\n    <product-form\n      [price]=\"price\"\n      [imageSrc]=\"imageSrc\"\n      [title]=\"title\"\n      [description]=\"description\"\n      (onSave)=\"onSaveProduct($event)\"\n    ></product-form>\n  </ng-template>\n  <ng-template [ngIf]=\"!isEditing\">\n    <button (click)=\"setIsEditing(true)\">\n      Click here to edit\n    </button>\n    <product-details\n      [price]=\"price\"\n      [imageSrc]=\"imageSrc\"\n      [title]=\"title\"\n      [description]=\"description\"\n    ></product-details>\n  </ng-template>\n</div>"
         },
         {
             "name": "ProductDetailsComponent",
@@ -605,6 +740,126 @@
                 "OnChanges"
             ],
             "templateData": "<form\n  class=\"product-form\"\n  (submit)=\"onSubmit($event)\"\n>\n  <label>\n    Title\n    <input\n      [(ngModel)]=\"formData.title\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"title\"\n      placeholder=\"Smart Watch\"\n    />\n    <ng-template [ngIf]=\"getError('title')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('title') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Description\n    <textarea\n      [(ngModel)]=\"formData.description\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"description\"\n      placeholder=\"This is a nice smart watch used to monitor your life\"\n    ></textarea>\n    <ng-template [ngIf]=\"getError('description')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('description') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Price\n    <input\n      [(ngModel)]=\"formData.price\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"price\"\n      type=\"number\"\n      placeholder=\"99.99\"\n    />\n    <ng-template [ngIf]=\"getError('price')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('price') }}\n      </span>\n    </ng-template>\n  </label>\n  <label>\n    Image URL\n    <input\n      [(ngModel)]=\"formData.imageSrc\"\n      (ngModelChange)=\"handleFormChange()\"\n      name=\"imageSrc\"\n      type=\"url\"\n      placeholder=\"http://image.jpg\"\n    />\n    <ng-template [ngIf]=\"getError('imageSrc')\">\n      <span class=\"product-form__error-message\">\n        {{ getError('imageSrc') }}\n      </span>\n    </ng-template>\n  </label>\n  <button type=\"submit\" [disabled]=\"!!error\">\n    Save Changes\n  </button>\n</form>"
+        },
+        {
+            "name": "ProductListComponent",
+            "id": "component-ProductListComponent-2c7a4ac3726eb738b2c333602fd33a99",
+            "file": "src/components/ProductList/ProductList.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "product-list",
+            "styleUrls": [
+                "./ProductList.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./ProductList.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "products",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "Array<IProduct>"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "productListService",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ProductListService",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "modifierKind": [
+                        122
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnChanges",
+                    "args": [
+                        {
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 16,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, OnChanges, SimpleChanges } from \"@angular/core\";\nimport { ProductListService } from './ProductList.service';\nimport { IProduct } from \"../interfaces\";\n\n@Component({\n  selector: 'product-list',\n  templateUrl: './ProductList.html',\n  styleUrls: ['./ProductList.css']\n})\nexport default class ProductListComponent implements OnChanges {\n  @Input()\n  products: Array<IProduct> = [];\n\n  constructor(public productListService: ProductListService) {};\n\n  ngOnChanges(changes: SimpleChanges) {\n    if (changes.products)\n      this.productListService.setProducts(changes.products.currentValue);\n  }\n}",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".product-list {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n\n.product-list .editable-product {\n  display: none;\n  margin: 16px;\n}",
+                    "styleUrl": "./ProductList.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "productListService",
+                        "type": "ProductListService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 12,
+                "jsdoctags": [
+                    {
+                        "name": "productListService",
+                        "type": "ProductListService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnChanges"
+            ],
+            "templateData": "<div class=\"product-list\">\n  <editable-product\n    *ngFor=\"let product of productListService.currentProducts\"\n    [price]=\"product.price\"\n    [imageSrc]=\"product.imageSrc\"\n    [title]=\"product.title\"\n    [description]=\"product.description\"\n    (onSave)=\"productListService.updateProduct(product.uuid, $event)\"\n  ></editable-product>\n</div>"
         }
     ],
     "modules": [
@@ -686,6 +941,16 @@
                 "defaultValue": "Template.bind({})"
             },
             {
+                "name": "Basic",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/ProductList.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -753,6 +1018,16 @@
                 "deprecationMessage": "",
                 "type": "Story<ProductForm>",
                 "defaultValue": "(args: ProductForm) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/ProductList.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<ProductList>",
+                "defaultValue": "(args: ProductList) => ({\n  props: args,\n})"
             },
             {
                 "name": "WithoutImage",
@@ -910,6 +1185,28 @@
                     "deprecationMessage": "",
                     "type": "Story<ProductForm>",
                     "defaultValue": "(args: ProductForm) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/stories/ProductList.stories.ts": [
+                {
+                    "name": "Basic",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/ProductList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/ProductList.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<ProductList>",
+                    "defaultValue": "(args: ProductList) => ({\n  props: args,\n})"
                 }
             ],
             "src/test.ts": [
@@ -1105,6 +1402,33 @@
                 "status": "low"
             },
             {
+                "filePath": "src/components/ProductList/ProductList.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProductListComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/components/ProductList/ProductList.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "ProductListService",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/components/ProductList/ProductList.service.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IKeyedProduct",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
                 "filePath": "src/components/interfaces.ts",
                 "type": "interface",
                 "linktype": "interface",
@@ -1195,6 +1519,26 @@
             },
             {
                 "filePath": "src/stories/ProductForm.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/ProductList.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Basic",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/ProductList.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
