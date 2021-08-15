@@ -1,0 +1,66 @@
+<form
+  class="product-form"
+  (submit)="onSubmit($event)"
+>
+  <label>
+    Title
+    <input
+      [(ngModel)]="formData.title"
+      (ngModelChange)="handleFormChange()"
+      name="title"
+      placeholder="Smart Watch"
+    />
+    <ng-template [ngIf]="getError('title')">
+      <span class="product-form__error-message">
+        {{ getError('title') }}
+      </span>
+    </ng-template>
+  </label>
+  <label>
+    Description
+    <textarea
+      [(ngModel)]="formData.description"
+      (ngModelChange)="handleFormChange()"
+      name="description"
+      placeholder="This is a nice smart watch used to monitor your life"
+    ></textarea>
+    <ng-template [ngIf]="getError('description')">
+      <span class="product-form__error-message">
+        {{ getError('description') }}
+      </span>
+    </ng-template>
+  </label>
+  <label>
+    Price
+    <input
+      [(ngModel)]="formData.price"
+      (ngModelChange)="handleFormChange()"
+      name="price"
+      type="number"
+      placeholder="99.99"
+    />
+    <ng-template [ngIf]="getError('price')">
+      <span class="product-form__error-message">
+        {{ getError('price') }}
+      </span>
+    </ng-template>
+  </label>
+  <label>
+    Image URL
+    <input
+      [(ngModel)]="formData.imageSrc"
+      (ngModelChange)="handleFormChange()"
+      name="imageSrc"
+      type="url"
+      placeholder="http://image.jpg"
+    />
+    <ng-template [ngIf]="getError('imageSrc')">
+      <span class="product-form__error-message">
+        {{ getError('imageSrc') }}
+      </span>
+    </ng-template>
+  </label>
+  <button type="submit" [disabled]="!!error">
+    Save Changes
+  </button>
+</form>

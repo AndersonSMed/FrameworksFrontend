@@ -1,10 +1,17 @@
 // also exported from '@storybook/angular' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/angular/types-6-0';
-import { ProductDetails } from '../components';
+import { moduleMetadata } from '@storybook/angular';
+import { ProductForm } from '../components';
+import { FormsModule }   from '@angular/forms';
 
 export default {
-  title: 'Examples/ProductDetails',
-  component: ProductDetails,
+  title: 'Examples/ProductForm',
+  component: ProductForm,
+  decorators: [
+    moduleMetadata({
+      imports: [FormsModule]
+    })
+  ],
   argTypes: {
     price: { control: { type: 'number' } },
     imageSrc: { control: { type: 'text' } },
@@ -13,7 +20,7 @@ export default {
   }
 } as Meta;
 
-const Template: Story<ProductDetails> = (args: ProductDetails) => ({
+const Template: Story<ProductForm> = (args: ProductForm) => ({
   props: args,
 });
 
@@ -22,13 +29,6 @@ Basic.args = {
   price: 99.99,
   imageSrc: 'https://images-americanas.b2w.io/produtos/180303340/imagens/iwo-8-lite-prata-relogio-smartwatch-bluetooth-notificacoes-para-ios-e-android/180303340_1_large.jpg',
   title: 'Smart Watch',
-  description: 'This is a nice smart watch used to monitor your life',
+  description: 'This is a nice smart watch used to monitor your life'
 };
 
-export const WithoutImage = Template.bind({});
-WithoutImage.args = {
-  price: 2000,
-  imageSrc: '',
-  title: 'Freezer',
-  description: 'This is a freezer to keep your foods cold'
-};
