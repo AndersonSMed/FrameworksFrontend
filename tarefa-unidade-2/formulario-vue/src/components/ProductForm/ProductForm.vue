@@ -57,14 +57,15 @@
         </span>
       </template>
     </label>
-    <button type="submit" :disabled="!!error">
+    <button type="submit" :disabled="hasErrors">
       Save Changes
     </button>
   </form>
 </template>
 
 <script>
-import { watch, reactive } from 'vue'; 
+import { computed, watch, reactive } from 'vue';
+import { useYup } from './validators'; 
 import './ProductForm.css';
 
 export default {
@@ -93,6 +94,22 @@ export default {
   },
   emits: ['save'],
   setup(props, { emit }) {
+    const schema = useYup({
+      title: {
+        type: 'text',
+        required: true 
+      },
+      description: {
+        type: 'text',
+        required: true 
+      },
+      price: {
+        type: 'number',
+        required: true 
+      },
+      imageSrc: { type: 'url' }
+    });
+
     const state = reactive({
       formData: {
         title: props.title,
@@ -103,11 +120,19 @@ export default {
       error: null
     });
 
-    watch(state, console.log);
+    watch(state, changes => {
+      schema
+        .validate(changes.formData)
+        .then(() => { state.error = null; })
+        .catch((err) => { state.error = err && err.message; })
+    });
     
     return {
       formData: state.formData,
       error: state.error,
+      hasErrors: computed(() => {
+        return !!state.error;
+      }),
       getError: (field) => {
         if (state.error && state.error.startsWith(field))
           return state.error.split(' ').slice(1).join(' ');
