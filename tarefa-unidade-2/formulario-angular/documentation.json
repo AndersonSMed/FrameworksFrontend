@@ -825,7 +825,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".product-list {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n\n.product-list .editable-product {\n  display: none;\n  margin: 16px;\n}",
+                    "data": "@import '../Base.css';\n\n.product-list {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n\n.product-list > div {\n  margin: 16px;\n}",
                     "styleUrl": "./ProductList.css"
                 }
             ],
@@ -859,7 +859,7 @@
             "implements": [
                 "OnChanges"
             ],
-            "templateData": "<div class=\"product-list\">\n  <editable-product\n    *ngFor=\"let product of productListService.currentProducts\"\n    [price]=\"product.price\"\n    [imageSrc]=\"product.imageSrc\"\n    [title]=\"product.title\"\n    [description]=\"product.description\"\n    (onSave)=\"productListService.updateProduct(product.uuid, $event)\"\n  ></editable-product>\n</div>"
+            "templateData": "<div class=\"product-list\">\n  <div *ngFor=\"let product of productListService.currentProducts\">\n    <editable-product\n      [price]=\"product.price\"\n      [imageSrc]=\"product.imageSrc\"\n      [title]=\"product.title\"\n      [description]=\"product.description\"\n      (onSave)=\"productListService.updateProduct(product.uuid, $event)\"\n    ></editable-product>\n  </div>\n</div>"
         }
     ],
     "modules": [
