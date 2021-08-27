@@ -5,7 +5,7 @@ export default {
   title: 'Store/ProductDetails',
   component: ProductDetails,
   argTypes: {
-    backgroundColor: { control: 'color' },
+    price: { control: 'number' },
   },
 } as ComponentMeta<typeof ProductDetails>;
 
@@ -14,4 +14,6 @@ const Template: ComponentStory<typeof ProductDetails> = (args) => <ProductDetail
 export const Basic = Template.bind({});
 Basic.args = {
   title: 'Basic Product',
+  description: 'This is a basic product',
+  price: 100.00
 };

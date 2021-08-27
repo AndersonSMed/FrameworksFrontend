@@ -7,10 +7,12 @@ export interface ProductDetailsProps {
   price: string | number;
   title?: string;
   description?: string;
+  imageSrc?: string,
+  imageLabel?: string,
   onAddToCart?: (event: React.MouseEvent) => void;
 }
 
-export default function ProductDetails({ title, description, price, onAddToCart }: ProductDetailsProps) {
+export default function ProductDetails({ title, description, price, imageSrc, imageLabel, onAddToCart }: ProductDetailsProps) {
   const handleAddToCart = (event: React.MouseEvent) => {
     if (onAddToCart) onAddToCart(event);
   }
@@ -19,6 +21,7 @@ export default function ProductDetails({ title, description, price, onAddToCart 
     <Card className="product-details">
       <CardContent>
         <h2 className="product-details__title">{title}</h2>
+        {imageSrc && <img src={imageSrc} aria-label={imageLabel} />}
         <span>{description}</span>
         <span>{formatPrice(price)}</span>
       </CardContent>
