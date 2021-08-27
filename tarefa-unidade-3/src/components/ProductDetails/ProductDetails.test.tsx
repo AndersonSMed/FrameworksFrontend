@@ -8,6 +8,7 @@ it('Renders correctly', () => {
   expect(getByText('Sample Product')).toBeVisible();
   expect(getByText('This is a sample product')).toBeVisible();
   expect(getByText('R$10.45')).toBeVisible();
+  expect(getByText('No Image')).toBeVisible();
 });
 
 it('Renders correctly with numeric price', () => {
@@ -15,7 +16,7 @@ it('Renders correctly with numeric price', () => {
 
   expect(getByText('Sample Product')).toBeVisible();
   expect(getByText('This is a sample product')).toBeVisible();
-  expect(getByText('R$10.45')).toBeVisible();
+  expect(getByText('No Image')).toBeVisible();
 });
 
 it('Renders with image', () => {
