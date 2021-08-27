@@ -1,5 +1,5 @@
 import {
-  Card, CardContent, CardActions, Button, Chip,
+  Card, CardContent, CardActions, Button, Chip, Tooltip,
 } from '@material-ui/core';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { formatPrice } from '../common';
@@ -12,12 +12,26 @@ export interface ProductDetailsProps {
   imageSrc?: string,
   imageLabel?: string,
   onAddToCart?: (event: React.MouseEvent) => void;
+  outOfStock?: Boolean;
 }
 
-export default function ProductDetails({ title, description, price, imageSrc, imageLabel, onAddToCart }: ProductDetailsProps) {
+export default function ProductDetails({ title, description, price, imageSrc, imageLabel, outOfStock, onAddToCart }: ProductDetailsProps) {
   const handleAddToCart = (event: React.MouseEvent) => {
     if (onAddToCart) onAddToCart(event);
   }
+
+  const cartButton = (
+    <Button
+      className="product-details__action-button"
+      variant="outlined"
+      color="primary"
+      onClick={handleAddToCart}
+      disabled={!!outOfStock}
+      disableElevation
+    >
+      Add to Cart
+    </Button>
+  );
 
   return (
     <Card className="product-details">
@@ -36,7 +50,15 @@ export default function ProductDetails({ title, description, price, imageSrc, im
         <div className="product-details__description">{description}</div>
       </CardContent>
       <CardActions>
-        <Button className="product-details__action-button" variant="outlined" color="primary" onClick={handleAddToCart} disableElevation>Add to Cart</Button>
+        {outOfStock ? (
+          <Tooltip title="This product is currently out of stock" aria-label="This product is currently out of stock">
+            <span className="product-details__out-of-stock-tooltip">
+              {cartButton}
+            </span>
+          </Tooltip>
+        ) : (
+          cartButton
+        )}
       </CardActions>
     </Card>
   );

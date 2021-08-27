@@ -32,3 +32,11 @@ it('Should call handler after click on add to cart', () => {
   userEvent.click(getByRole('button', { name: 'Add to Cart' }));
   expect(onAddToCart).toBeCalled();
 });
+
+it('Should disable action button when it is out of stock', () => {
+  const onAddToCart = jest.fn();
+  const { getByRole, getByTitle } = render(<ProductDetails title="Sample Product" description="This is a sample product" price={10.45} onAddToCart={onAddToCart} outOfStock />);
+  
+  expect(getByRole('button', { name: 'Add to Cart' })).toBeDisabled();
+  expect(getByTitle('This product is currently out of stock')).toBeVisible();
+});
