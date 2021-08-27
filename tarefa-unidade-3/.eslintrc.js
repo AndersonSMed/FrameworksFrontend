@@ -20,20 +20,15 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'space-before-function-paren': 0,
+    'react/prop-types': 0,
+    'react/jsx-handler-names': 0,
+    'react/jsx-fragments': 0,
+    'react/no-unused-prop-types': 0,
+    'import/export': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
-  },
-  'jsx-runtime': {
-    plugins: [
-      'react',
-    ],
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
-    rules: {
-      'react/react-in-jsx-scope': 0,
-      'react/jsx-uses-react': 0,
-    },
+    'react/react-in-jsx-scope': 0,
+    'react/jsx-uses-react': 0,
+    camelcase: [2, { properties: 'always' }],
   },
 };
