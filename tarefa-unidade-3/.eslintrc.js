@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    'jest/globals': true,
   },
   extends: [
     'plugin:react/recommended',
@@ -18,6 +19,7 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'eslint-plugin-jest',
   ],
   rules: {
     'space-before-function-paren': 0,
@@ -29,6 +31,11 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/react-in-jsx-scope': 0,
     'react/jsx-uses-react': 0,
+    'import/extensions': [
+      {
+        tsx: 'never',
+      },
+    ],
     camelcase: [2, { properties: 'always' }],
   },
 };
