@@ -1,10 +1,10 @@
-import { Button, Checkbox, Modal, TextareaAutosize, TextField } from "@material-ui/core";
-import { Formik } from "formik";
-import { IProduct } from "../interfaces";
+import { Button, Checkbox, Modal, TextareaAutosize, TextField } from '@material-ui/core';
+import { Formik } from 'formik';
 import * as yup from 'yup';
+import { IProduct } from '../interfaces';
 import './ProductEditor.scss';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import { hasErrorsFromKey } from "../common";
+import { hasErrorsFromKey } from '../common';
 
 export interface ProductEditorProps {
   title: string;
@@ -13,16 +13,16 @@ export interface ProductEditorProps {
 }
 
 export interface ModalProductEditorProps extends ProductEditorProps {
-  isOpen?: Boolean;
+  isOpen?: boolean;
 }
 
 const defaultIntialValues = Object.freeze({
   title: '',
   description: '',
-  price: 0.00,
+  price: 0.0,
   imageSrc: '',
   imageLabel: '',
-  outOfStock: false
+  outOfStock: false,
 });
 
 const valuesSchema = yup.object().shape({
@@ -31,19 +31,19 @@ const valuesSchema = yup.object().shape({
   price: yup.number().required().min(0),
   imageSrc: yup.string().url(),
   imageLabel: yup.string(),
-  outOfStock: yup.bool().default(false)
+  outOfStock: yup.bool().default(false),
 });
 
-export function ProductEditor({ title, initialValues, onSubmit }: ProductEditorProps) {
+export function ProductEditor({ title, initialValues, onSubmit }: ProductEditorProps): JSX.Element {
   return (
     <div className="product-editor">
       {title && <div className="product-editor__title">{title}</div>}
       <Formik
         initialValues={initialValues || defaultIntialValues}
-        onSubmit={values => {
-          if(onSubmit) onSubmit(values);
+        onSubmit={(values) => {
+          if (onSubmit) onSubmit(values);
         }}
-        validate={values => {
+        validate={(values) => {
           try {
             valuesSchema.validateSync(values);
             return [];
@@ -55,9 +55,9 @@ export function ProductEditor({ title, initialValues, onSubmit }: ProductEditorP
       >
         {({ errors, values, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
           const parsedErrors =
-            typeof errors === 'object' ? Object.values(errors) : errors as Array<string>;
+            typeof errors === 'object' ? Object.values(errors) : (errors as Array<string>);
           const hasErrors = parsedErrors.length > 0;
-          
+
           return (
             <form onSubmit={handleSubmit}>
               <label className="product-editor__label">
@@ -150,17 +150,12 @@ export function ProductEditor({ title, initialValues, onSubmit }: ProductEditorP
 }
 
 ProductEditor.defaultProps = Object.freeze({
-  title: ''
+  title: '',
 });
 
-function ModalProductEditor({ isOpen }: ModalProductEditorProps) {
+function ModalProductEditor({ isOpen }: ModalProductEditorProps): JSX.Element {
   return (
-    <Modal
-      disablePortal
-      disableEnforceFocus
-      disableAutoFocus
-      open={!!isOpen}
-    >
+    <Modal disablePortal disableEnforceFocus disableAutoFocus open={!!isOpen}>
       <ProductEditor />
     </Modal>
   );

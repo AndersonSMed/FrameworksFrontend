@@ -6,7 +6,7 @@ export default {
   component: ProductEditor,
   argTypes: {
     title: { control: 'text' },
-    initialValues: { control: 'object' }
+    initialValues: { control: 'object' },
   },
 } as ComponentMeta<typeof ProductEditor>;
 
@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof ProductEditor> = (args) => <ProductEditor 
 
 export const Basic = Template.bind({});
 Basic.args = {
-  title: 'Creating New Product'
+  title: 'Creating New Product',
 };
 
 export const WithInitialValues = Template.bind({});
@@ -26,6 +26,6 @@ WithInitialValues.args = {
     price: 1000,
     imageSrc: 'http://images.test.com/product.jpg',
     imageLabel: 'A product wrapped in paper',
-    outOfStock: true
-  }
+    outOfStock: true,
+  },
 };

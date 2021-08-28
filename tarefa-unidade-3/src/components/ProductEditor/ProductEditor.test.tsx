@@ -33,8 +33,8 @@ it('Renders correctly with initial values', async () => {
     price: 300.0,
     imageSrc: 'http://images.test.com/smartwatch.jpg',
     imageLabel: 'Smart watch floating on screen',
-    outOfStock: true
-  }
+    outOfStock: true,
+  };
 
   const { getByLabelText, getByRole } = await renderComponent({ initialValues });
 
@@ -48,8 +48,8 @@ it('Renders correctly with initial values', async () => {
 });
 
 it('Renders correct title', async () => {
-  const { getByText } = await renderComponent({ title: "This is a form" });
-  
+  const { getByText } = await renderComponent({ title: 'This is a form' });
+
   expect(getByText('This is a form')).toBeVisible();
 });
 
@@ -70,11 +70,15 @@ it('Calls onSubmit handler with correct values', async () => {
   });
 
   await act(async () => {
-    fireEvent.change(getByLabelText('Image URL'), { target: { value: 'http://images.test.com/product.jpg' } });
+    fireEvent.change(getByLabelText('Image URL'), {
+      target: { value: 'http://images.test.com/product.jpg' },
+    });
   });
 
   await act(async () => {
-    fireEvent.change(getByLabelText('Image Description'), { target: { value: 'A product wrapped in paper' } });
+    fireEvent.change(getByLabelText('Image Description'), {
+      target: { value: 'A product wrapped in paper' },
+    });
   });
 
   await act(async () => {
@@ -91,6 +95,6 @@ it('Calls onSubmit handler with correct values', async () => {
     price: 1000,
     imageSrc: 'http://images.test.com/product.jpg',
     imageLabel: 'A product wrapped in paper',
-    outOfStock: true
+    outOfStock: true,
   });
 });

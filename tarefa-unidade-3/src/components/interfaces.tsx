@@ -4,7 +4,7 @@ export interface IProduct {
   description: string;
   imageSrc?: string;
   imageLabel?: string;
-  outOfStock?: Boolean;
+  outOfStock?: boolean;
 }
 
 export interface IProductWithKey extends IProduct {
@@ -14,6 +14,6 @@ export interface IProductWithKey extends IProduct {
 export interface ICartItem {
   uuid: string;
   title: string;
-  price: Number;
-  quantity: Number;
+  price: number;
+  quantity: number;
 }

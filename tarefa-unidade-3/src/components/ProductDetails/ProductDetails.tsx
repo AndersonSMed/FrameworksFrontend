@@ -1,6 +1,4 @@
-import {
-  Card, CardContent, CardActions, Button, Chip, Tooltip,
-} from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, Chip, Tooltip } from '@material-ui/core';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { formatPrice } from '../common';
 import { IProduct } from '../interfaces';
@@ -10,10 +8,18 @@ export interface ProductDetailsProps extends IProduct {
   onAddToCart?: (event: React.MouseEvent) => void;
 }
 
-export default function ProductDetails({ title, description, price, imageSrc, imageLabel, outOfStock, onAddToCart }: ProductDetailsProps) {
+export default function ProductDetails({
+  title,
+  description,
+  price,
+  imageSrc,
+  imageLabel,
+  outOfStock,
+  onAddToCart,
+}: ProductDetailsProps): JSX.Element {
   const handleAddToCart = (event: React.MouseEvent) => {
     if (onAddToCart) onAddToCart(event);
-  }
+  };
 
   const cartButton = (
     <Button
@@ -32,24 +38,28 @@ export default function ProductDetails({ title, description, price, imageSrc, im
     <Card className="product-details">
       <CardContent>
         <div className="product-details__image-container">
-          <Chip className="product-details__price" label={formatPrice(price)} icon={<MonetizationOnIcon />} variant="outlined" />
-          {imageSrc ?
-            (
-              <img src={imageSrc} aria-label={imageLabel} />
-            ) : (
-              <span className="product-details__no-image-message">No Image</span>
-            )
-          }
+          <Chip
+            className="product-details__price"
+            label={formatPrice(price)}
+            icon={<MonetizationOnIcon />}
+            variant="outlined"
+          />
+          {imageSrc ? (
+            <img src={imageSrc} aria-label={imageLabel} />
+          ) : (
+            <span className="product-details__no-image-message">No Image</span>
+          )}
         </div>
         <div className="product-details__title">{title}</div>
         <div className="product-details__description">{description}</div>
       </CardContent>
       <CardActions>
         {outOfStock ? (
-          <Tooltip title="This product is currently out of stock" aria-label="This product is currently out of stock">
-            <span className="product-details__out-of-stock-tooltip">
-              {cartButton}
-            </span>
+          <Tooltip
+            title="This product is currently out of stock"
+            aria-label="This product is currently out of stock"
+          >
+            <span className="product-details__out-of-stock-tooltip">{cartButton}</span>
           </Tooltip>
         ) : (
           cartButton
@@ -62,5 +72,5 @@ export default function ProductDetails({ title, description, price, imageSrc, im
 ProductDetails.defaultProps = Object.freeze({
   title: '',
   description: '',
-  price: 0.00,
+  price: 0.0,
 });

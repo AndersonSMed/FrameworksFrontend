@@ -4,16 +4,12 @@ export interface ErrorMessageProps {
   message: string;
 }
 
-function ErrorMessage({ message }: ErrorMessageProps) {
-  return (
-    <div className="error-message">
-      {message}
-    </div>
-  );
+function ErrorMessage({ message }: ErrorMessageProps): JSX.Element {
+  return <div className="error-message">{message}</div>;
 }
 
 ErrorMessage.defaultProps = Object.freeze({
-  message: ''
+  message: '',
 });
 
 export default ErrorMessage;

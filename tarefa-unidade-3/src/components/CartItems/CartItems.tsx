@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { Badge, IconButton, Popover, Tooltip } from "@material-ui/core";
+import { useState } from 'react';
+import { Badge, IconButton, Popover, Tooltip } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ICartItem } from "../interfaces";
+import { ICartItem } from '../interfaces';
 import './CartItems.scss';
-import { formatPrice } from "../common";
+import { formatPrice } from '../common';
 
 type CartAction = 'add' | 'remove' | 'delete';
 
 export interface CartItemsProps {
   items: ICartItem[];
   onChange?: (actionName: CartAction, uuid: string) => void;
-};
+}
 
 export interface CartPopoverProps extends CartItemsProps {
   anchorEl: Element | undefined;
   onClose: () => void;
-  isOpen?: Boolean;
+  isOpen?: boolean;
 }
 
 export interface CartItemProps extends ICartItem {
@@ -29,7 +29,7 @@ function CartItem({ title, quantity, price, uuid, onChange }: CartItemProps) {
   const totalPrice = Number(quantity) * Number(price);
   const handleClick = (action: CartAction) => () => {
     if (onChange) onChange(action, uuid);
-  }
+  };
 
   return (
     <div className="cart-items__item">
@@ -37,14 +37,10 @@ function CartItem({ title, quantity, price, uuid, onChange }: CartItemProps) {
         <span className="cart-items__item-title" title={title}>
           {title}
         </span>
-        <span className="cart-items__item-total-price">
-          {formatPrice(totalPrice.toString())}
-        </span>
+        <span className="cart-items__item-total-price">{formatPrice(totalPrice.toString())}</span>
       </div>
       <div className="cart-items__item-actions">
-        <span className="cart-items__item-quantity">
-          Total: {quantity}
-        </span>
+        <span className="cart-items__item-quantity">Total: {quantity}</span>
         <Tooltip title={`Add one more ${title}`}>
           <span>
             <IconButton
@@ -99,21 +95,17 @@ function CartPopover({ items, anchorEl, isOpen, onClose, onChange }: CartPopover
       onClose={onClose}
     >
       <div className="cart-items__popover-container">
-        {items.length > 0
-          ? (
-            items.map(item => (
-              <CartItem key={item.uuid} onChange={onChange} {...item} />
-            ))
-          ) : (
-            <span>There are no items on cart</span>
-          )
-        }
+        {items.length > 0 ? (
+          items.map((item) => <CartItem key={item.uuid} onChange={onChange} {...item} />)
+        ) : (
+          <span>There are no items on cart</span>
+        )}
       </div>
     </Popover>
   );
-};
+}
 
-function CartItems({ items, onChange }: CartItemsProps) {
+function CartItems({ items, onChange }: CartItemsProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<Element>();
   const totalItems = items.length;
   const isPopoverOpen = Boolean(anchorEl);
@@ -128,14 +120,8 @@ function CartItems({ items, onChange }: CartItemsProps) {
 
   return (
     <>
-      <Badge
-        badgeContent={totalItems}
-        overlap="circular"
-      >
-        <IconButton
-          aria-label="Open Cart"
-          onClick={handleClick}
-        >
+      <Badge badgeContent={totalItems} overlap="circular">
+        <IconButton aria-label="Open Cart" onClick={handleClick}>
           <ShoppingCartIcon />
         </IconButton>
       </Badge>
@@ -151,7 +137,7 @@ function CartItems({ items, onChange }: CartItemsProps) {
 }
 
 CartItems.defaultProps = Object.freeze({
-  items: []
+  items: [],
 });
 
 export default CartItems;

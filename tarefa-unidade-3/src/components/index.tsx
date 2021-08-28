@@ -4,10 +4,4 @@ import ProductList from './ProductList/ProductList';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import CartItems from './CartItems/CartItems';
 
-export {
-  ProductDetails,
-  ProductEditor,
-  ProductList,
-  ErrorMessage,
-  CartItems
-};
+export { ProductDetails, ProductEditor, ProductList, ErrorMessage, CartItems };

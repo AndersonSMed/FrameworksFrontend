@@ -8,18 +8,18 @@ const renderComponent = (props = {}) => {
       title: 'Sample Item',
       uuid: '869c6d8f-1174-462f-bf31-5204c8e7f9ee',
       quantity: 5,
-      price: 8
+      price: 8,
     },
     {
       title: 'Another Sample Item',
       uuid: '7480f3cb-6de9-4b81-b514-544a3117cb86',
       quantity: 10,
-      price: 5
-    }
+      price: 5,
+    },
   ];
 
   return render(<CartItems items={items} {...props} />);
-}
+};
 
 it('Renders correctly', () => {
   const { getByText, getByRole } = renderComponent();
