@@ -2,4 +2,7 @@ export function formatPrice(price: number | string) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(typeof price === 'string' ? Number(price) : price);
 }
 
-export function noOp() {}
+export function hasErrorsFromKey(key: string, errorList: string[]) {
+  if (errorList.length === 0) return false;
+  return errorList[0].startsWith(key);
+}

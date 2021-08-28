@@ -31,7 +31,7 @@ it('Renders correctly with initial values', async () => {
     title: 'Smart Watch',
     description: 'This is a nice smart watch used to monitor things',
     price: 300.0,
-    imageSrc: 'file://smartwatch.jpg',
+    imageSrc: 'http://images.test.com/smartwatch.jpg',
     imageLabel: 'Smart watch floating on screen',
     outOfStock: true
   }
@@ -70,7 +70,7 @@ it('Calls onSubmit handler with correct values', async () => {
   });
 
   await act(async () => {
-    fireEvent.change(getByLabelText('Image URL'), { target: { value: 'file://product.jpg' } });
+    fireEvent.change(getByLabelText('Image URL'), { target: { value: 'http://images.test.com/product.jpg' } });
   });
 
   await act(async () => {
@@ -89,7 +89,7 @@ it('Calls onSubmit handler with correct values', async () => {
     title: 'Product Title',
     description: 'Product Description',
     price: 1000,
-    imageSrc: 'file://product.jpg',
+    imageSrc: 'http://images.test.com/product.jpg',
     imageLabel: 'A product wrapped in paper',
     outOfStock: true
   });
