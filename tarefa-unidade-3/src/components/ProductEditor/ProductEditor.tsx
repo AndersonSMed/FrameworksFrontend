@@ -1,6 +1,6 @@
 import { Button, Checkbox, Modal, TextareaAutosize, TextField } from "@material-ui/core";
 import { Formik } from "formik";
-import { ProductInterface } from "../interfaces";
+import { IProduct } from "../interfaces";
 import * as yup from 'yup';
 import './ProductEditor.scss';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -8,8 +8,8 @@ import { hasErrorsFromKey } from "../common";
 
 export interface ProductEditorProps {
   title: string;
-  initialValues?: ProductInterface;
-  onSubmit?: (data: ProductInterface) => void;
+  initialValues?: IProduct;
+  onSubmit?: (data: IProduct) => void;
 }
 
 export interface ModalProductEditorProps extends ProductEditorProps {

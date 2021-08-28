@@ -3,10 +3,10 @@ import {
 } from '@material-ui/core';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { formatPrice } from '../common';
-import { ProductInterface } from '../interfaces';
+import { IProduct } from '../interfaces';
 import './ProductDetails.scss';
 
-export interface ProductDetailsProps extends ProductInterface {
+export interface ProductDetailsProps extends IProduct {
   onAddToCart?: (event: React.MouseEvent) => void;
 }
 
@@ -32,7 +32,7 @@ export default function ProductDetails({ title, description, price, imageSrc, im
     <Card className="product-details">
       <CardContent>
         <div className="product-details__image-container">
-          <Chip className="product-details__price" label={formatPrice(price)} icon={<MonetizationOnIcon />} variant="outlined" color="secondary" />
+          <Chip className="product-details__price" label={formatPrice(price)} icon={<MonetizationOnIcon />} variant="outlined" />
           {imageSrc ?
             (
               <img src={imageSrc} aria-label={imageLabel} />
