@@ -52,3 +52,48 @@ it('Shows correct values after opening cart', () => {
   expect(getByText('Total: 10')).toBeVisible();
   expect(getByText('R$50.00')).toBeVisible();
 });
+
+it('Should add handler with correct values after clicked on add item', () => {
+  const onChange = jest.fn();
+  const { getByRole } = renderComponent({ onChange });
+
+  act(() => {
+    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+  });
+
+  act(() => {
+    userEvent.click(getByRole('button', { name: 'Add one more Sample Item' }));
+  });
+
+  expect(onChange).toBeCalledWith('add', '869c6d8f-1174-462f-bf31-5204c8e7f9ee');
+});
+
+it('Should add handler with correct values after clicked on remove item', () => {
+  const onChange = jest.fn();
+  const { getByRole } = renderComponent({ onChange });
+
+  act(() => {
+    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+  });
+
+  act(() => {
+    userEvent.click(getByRole('button', { name: 'Remove one Sample Item' }));
+  });
+
+  expect(onChange).toBeCalledWith('remove', '869c6d8f-1174-462f-bf31-5204c8e7f9ee');
+});
+
+it('Should add handler with correct values after clicked on delete item', () => {
+  const onChange = jest.fn();
+  const { getByRole } = renderComponent({ onChange });
+
+  act(() => {
+    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+  });
+
+  act(() => {
+    userEvent.click(getByRole('button', { name: 'Delete Sample Item from list' }));
+  });
+
+  expect(onChange).toBeCalledWith('delete', '869c6d8f-1174-462f-bf31-5204c8e7f9ee');
+});

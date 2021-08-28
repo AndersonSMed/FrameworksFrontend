@@ -8,7 +8,7 @@ import { ICartItem } from "../interfaces";
 import './CartItems.scss';
 import { formatPrice } from "../common";
 
-type CartAction = 'increase' | 'decrease' | 'remove';
+type CartAction = 'add' | 'remove' | 'delete';
 
 export interface CartItemsProps {
   items: ICartItem[];
@@ -27,6 +27,9 @@ export interface CartItemProps extends ICartItem {
 
 function CartItem({ title, quantity, price, uuid, onChange }: CartItemProps) {
   const totalPrice = Number(quantity) * Number(price);
+  const handleClick = (action: CartAction) => () => {
+    if (onChange) onChange(action, uuid);
+  }
 
   return (
     <div className="cart-items__item">
@@ -42,23 +45,35 @@ function CartItem({ title, quantity, price, uuid, onChange }: CartItemProps) {
         <span className="cart-items__item-quantity">
           Total: {quantity}
         </span>
-        <Tooltip title={`Add one more ${title}`} aria-label={`Add one more ${title}`}>
+        <Tooltip title={`Add one more ${title}`}>
           <span>
-            <IconButton size="small">
+            <IconButton
+              size="small"
+              aria-label={`Add one more ${title}`}
+              onClick={handleClick('add')}
+            >
               <AddIcon fontSize="small" color="action" />
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip title={`Remove one ${title}`} aria-label={`Remove one ${title}`}>
+        <Tooltip title={`Remove one ${title}`}>
           <span>
-            <IconButton size="small">
+            <IconButton
+              size="small"
+              aria-label={`Remove one ${title}`}
+              onClick={handleClick('remove')}
+            >
               <RemoveIcon fontSize="small" color="action" />
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip title={`Remove ${title} from list`} aria-label={`Remove ${title} from list`}>
+        <Tooltip title={`Delete ${title} from list`}>
           <span>
-            <IconButton size="small">
+            <IconButton
+              size="small"
+              aria-label={`Delete ${title} from list`}
+              onClick={handleClick('delete')}
+            >
               <DeleteIcon fontSize="small" color="error" />
             </IconButton>
           </span>
@@ -87,7 +102,7 @@ function CartPopover({ items, anchorEl, isOpen, onClose, onChange }: CartPopover
         {items.length > 0
           ? (
             items.map(item => (
-              <CartItem key={item.uuid} {...item} />
+              <CartItem key={item.uuid} onChange={onChange} {...item} />
             ))
           ) : (
             <span>There are no items on cart</span>
