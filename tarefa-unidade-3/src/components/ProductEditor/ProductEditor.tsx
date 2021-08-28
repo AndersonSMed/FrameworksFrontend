@@ -9,6 +9,10 @@ export interface ProductEditorProps {
   onSubmit?: (data: ProductInterface) => void;
 }
 
+export interface ModalProductEditorProps extends ProductEditorProps {
+  isOpen?: Boolean;
+}
+
 export function ProductEditor({ title, initialValues, onSubmit }: ProductEditorProps) {
   const defaultIntialValues = {
     title: '',
@@ -126,13 +130,13 @@ ProductEditor.defaultProps = Object.freeze({
   title: ''
 });
 
-function ModalProductEditor() {
+function ModalProductEditor({ isOpen }: ModalProductEditorProps) {
   return (
     <Modal
       disablePortal
       disableEnforceFocus
       disableAutoFocus
-      open
+      open={!!isOpen}
     >
       <ProductEditor />
     </Modal>
