@@ -3,16 +3,11 @@ import {
 } from '@material-ui/core';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { formatPrice } from '../common';
+import { ProductInterface } from '../interfaces';
 import './ProductDetails.scss';
 
-export interface ProductDetailsProps {
-  price: string | number;
-  title?: string;
-  description?: string;
-  imageSrc?: string,
-  imageLabel?: string,
+export interface ProductDetailsProps extends ProductInterface {
   onAddToCart?: (event: React.MouseEvent) => void;
-  outOfStock?: Boolean;
 }
 
 export default function ProductDetails({ title, description, price, imageSrc, imageLabel, outOfStock, onAddToCart }: ProductDetailsProps) {

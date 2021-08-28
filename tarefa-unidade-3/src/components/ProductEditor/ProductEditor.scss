@@ -1,0 +1,26 @@
+.product-editor {
+  width: 400px;
+
+  &__title {}
+
+  &__label {
+    display: grid;
+    flex-direction: column;
+    font-weight: bold;
+    grid-gap: 16px;
+    padding: 8px 16px;
+
+    &--inline {
+      align-items: center;
+      grid-template-columns: auto min-content;
+    }
+
+    textarea {
+      width: 100% !important;
+    }
+  }
+
+  &__submit-button {
+    width: 100%;
+  }
+}
