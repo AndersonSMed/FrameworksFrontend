@@ -4,6 +4,9 @@ import { CartItems } from '../components';
 export default {
   title: 'Store/CartItems',
   component: CartItems,
+  argTypes: {
+    items: { control: 'object' }
+  }
 } as ComponentMeta<typeof CartItems>;
 
 const Template: ComponentStory<typeof CartItems> = (args) => <CartItems {...args} />;
@@ -27,4 +30,6 @@ Basic.args = {
 };
 
 export const WithoutItems = Template.bind({});
-WithoutItems.args = {};
+WithoutItems.args = {
+  items: []
+};

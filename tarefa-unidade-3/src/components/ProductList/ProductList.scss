@@ -1,0 +1,15 @@
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .product-details,
+  &__empty-message {
+    margin: 16px;
+  }
+
+  &__empty-message {
+    flex-grow: 1;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}

@@ -1,4 +1,7 @@
 .product-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: min-content;
 
   &__image-container {

@@ -7,6 +7,10 @@ export interface IProduct {
   outOfStock?: Boolean;
 }
 
+export interface IProductWithKey extends IProduct {
+  uuid: string;
+}
+
 export interface ICartItem {
   uuid: string;
   title: string;
