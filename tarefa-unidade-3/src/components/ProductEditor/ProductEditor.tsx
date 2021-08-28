@@ -48,7 +48,7 @@ export function ProductEditor({ title, initialValues, onSubmit }: ProductEditorP
             valuesSchema.validateSync(values);
             return [];
           } catch ({ errors }) {
-            return errors;
+            return errors as Array<string>;
           }
         }}
         validateOnMount

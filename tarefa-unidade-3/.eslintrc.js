@@ -34,6 +34,7 @@ module.exports = {
     'react/no-unused-prop-types': 0,
     'import/export': 0,
     'import/extensions': 0,
+    'import/prefer-default-export': 0,
     'import/no-extraneous-dependencies': [
       'error',
       {
