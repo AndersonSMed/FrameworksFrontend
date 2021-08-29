@@ -1,7 +1,7 @@
 import { Card, CardContent, CardActions, Button, Chip, Tooltip } from '@material-ui/core';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import { formatPrice } from '../common';
-import { IProduct } from '../interfaces';
+import { formatPrice } from '../../common';
+import { IProduct } from '../../interfaces';
 import './ProductDetails.scss';
 
 export interface ProductDetailsProps extends IProduct {

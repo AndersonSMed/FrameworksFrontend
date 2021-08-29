@@ -1,10 +1,10 @@
 import { Button, Checkbox, Modal, TextareaAutosize, TextField } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { IProduct } from '../interfaces';
+import { IProduct } from '../../interfaces';
 import './ProductEditor.scss';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import { hasErrorsFromKey } from '../common';
+import { hasErrorsFromKey } from '../../common';
 
 export interface ProductEditorProps {
   title: string;

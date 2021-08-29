@@ -1,4 +1,4 @@
-import { IProductWithKey } from '../interfaces';
+import { IProductWithKey } from '../../interfaces';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import './ProductList.scss';
 

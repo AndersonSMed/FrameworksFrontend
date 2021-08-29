@@ -4,9 +4,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ICartItem } from '../interfaces';
+import { ICartItem } from '../../interfaces';
 import './CartItems.scss';
-import { formatPrice } from '../common';
+import { formatPrice } from '../../common';
 
 type CartAction = 'add' | 'remove' | 'delete';
 

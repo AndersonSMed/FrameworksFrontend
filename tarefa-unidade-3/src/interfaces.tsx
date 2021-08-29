@@ -11,6 +11,11 @@ export interface IProductWithKey extends IProduct {
   uuid: string;
 }
 
+export interface IProductApiReturn {
+  id: string;
+  fields: IProduct;
+}
+
 export interface ICartItem {
   uuid: string;
   title: string;
