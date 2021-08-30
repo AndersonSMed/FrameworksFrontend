@@ -51,5 +51,5 @@ it('Should call handler with correct values', () => {
 it('Should show empty message when there are no items', () => {
   const { getByText } = renderComponent({ items: [] });
 
-  expect(getByText('There are no Products right now')).toBeVisible();
+  expect(getByText('No products were found')).toBeVisible();
 });

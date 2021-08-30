@@ -1,0 +1,24 @@
+.home {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  &__main {
+    flex-grow: 1;
+  }
+
+  &__lateral-bar {
+    box-shadow: 0px 1px 1px 1px #f3f3f3;
+    box-sizing: border-box;
+    height: 100%;
+    float: left;
+    padding: 32px;
+  }
+
+  &__lateral-bar-search-container {
+    align-items: center;
+    column-gap: 16px;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}

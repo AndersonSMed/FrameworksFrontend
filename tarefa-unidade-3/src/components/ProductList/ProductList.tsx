@@ -20,7 +20,7 @@ function ProductList({ items, onAddToCart }: ProductListProps): JSX.Element {
           <ProductDetails key={item.uuid} onAddToCart={handleAddToCart(item.uuid)} {...item} />
         ))
       ) : (
-        <div className="product-list__empty-message">There are no Products right now</div>
+        <div className="product-list__empty-message">No products were found</div>
       )}
     </div>
   );

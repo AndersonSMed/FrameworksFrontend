@@ -120,11 +120,15 @@ function CartItems({ items, onChange }: CartItemsProps): JSX.Element {
 
   return (
     <>
-      <Badge badgeContent={totalItems} overlap="circular">
-        <IconButton aria-label="Open Cart" onClick={handleClick}>
-          <ShoppingCartIcon />
-        </IconButton>
-      </Badge>
+      <Tooltip title="Open Cart">
+        <span>
+          <Badge badgeContent={totalItems} overlap="circular">
+            <IconButton aria-label="Open Cart" onClick={handleClick}>
+              <ShoppingCartIcon />
+            </IconButton>
+          </Badge>
+        </span>
+      </Tooltip>
       <CartPopover
         items={items}
         anchorEl={anchorEl}
