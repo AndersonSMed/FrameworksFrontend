@@ -34,6 +34,10 @@ function LateralBar() {
     setSearchValue(event.target.value);
   };
 
+  const handleClearButton = () => {
+    setSearchValue('');
+  };
+
   useEffect(() => {
     dispatch(filterProducts(searchValue));
   }, [searchValue]);
@@ -49,7 +53,7 @@ function LateralBar() {
         />
         <Tooltip title="Clear Search Field">
           <span>
-            <IconButton aria-label="Clear Search Field">
+            <IconButton aria-label="Clear Search Field" onClick={handleClearButton}>
               <ClearIcon fontSize="medium" />
             </IconButton>
           </span>

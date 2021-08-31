@@ -1,4 +1,4 @@
-import { act, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
@@ -42,12 +42,14 @@ const renderComponent = () => {
 };
 
 it('Renders correctly', async () => {
-  const { findByText, getByText } = renderComponent();
+  const { findByText, getByText, getByRole } = renderComponent();
 
   expect(await findByText('Sample Product')).toBeVisible();
   expect(getByText('R$100.10')).toBeVisible();
   expect(getByText('Another Sample Product')).toBeVisible();
   expect(getByText('R$1,000.10')).toBeVisible();
+  expect(getByRole('button', { name: 'Go to admin page' })).toBeVisible();
+  expect(getByRole('button', { name: 'Open cart' })).toBeVisible();
 });
 
 it('Should show correct products after search', async () => {
@@ -56,13 +58,11 @@ it('Should show correct products after search', async () => {
   await findByText('Sample Product');
 
   act(() => {
-    userEvent.type(getByPlaceholderText('Search for product'), 'ano');
+    fireEvent.change(getByPlaceholderText('Search for product'), { target: { value: 'ano' } });
   });
 
-  await waitFor(async () => {
-    expect(getByText('Another Sample Product')).toBeVisible();
-    expect(queryByText('Sample Product')).toBeNull();
-  });
+  expect(getByText('Another Sample Product')).toBeVisible();
+  expect(queryByText('Sample Product')).toBeNull();
 
   act(() => {
     userEvent.click(getByRole('button', { name: 'Clear Search Field' }));

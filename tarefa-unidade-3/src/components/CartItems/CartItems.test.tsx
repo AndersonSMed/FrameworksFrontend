@@ -25,14 +25,14 @@ it('Renders correctly', () => {
   const { getByText, getByRole } = renderComponent();
 
   expect(getByText('2')).toBeVisible();
-  expect(getByRole('button', { name: 'Open Cart' })).toBeVisible();
+  expect(getByRole('button', { name: 'Open cart' })).toBeVisible();
 });
 
 it('Shows empty message when there are no items', () => {
   const { getByText, getByRole } = renderComponent({ items: [] });
 
   act(() => {
-    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+    userEvent.click(getByRole('button', { name: 'Open cart' }));
   });
 
   expect(getByText('There are no items on cart')).toBeVisible();
@@ -42,7 +42,7 @@ it('Shows correct values after opening cart', () => {
   const { getByText, getByRole } = renderComponent();
 
   act(() => {
-    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+    userEvent.click(getByRole('button', { name: 'Open cart' }));
   });
 
   expect(getByText('Sample Item')).toBeVisible();
@@ -58,7 +58,7 @@ it('Should add handler with correct values after clicked on add item', () => {
   const { getByRole } = renderComponent({ onChange });
 
   act(() => {
-    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+    userEvent.click(getByRole('button', { name: 'Open cart' }));
   });
 
   act(() => {
@@ -73,7 +73,7 @@ it('Should add handler with correct values after clicked on remove item', () => 
   const { getByRole } = renderComponent({ onChange });
 
   act(() => {
-    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+    userEvent.click(getByRole('button', { name: 'Open cart' }));
   });
 
   act(() => {
@@ -88,7 +88,7 @@ it('Should add handler with correct values after clicked on delete item', () => 
   const { getByRole } = renderComponent({ onChange });
 
   act(() => {
-    userEvent.click(getByRole('button', { name: 'Open Cart' }));
+    userEvent.click(getByRole('button', { name: 'Open cart' }));
   });
 
   act(() => {
