@@ -1,0 +1,10 @@
+.products-table {
+  &__table-header {
+    white-space: nowrap;
+    font-weight: bolder !important;
+  }
+
+  &__table-actions {
+    display: flex;
+  }
+}
