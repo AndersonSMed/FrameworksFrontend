@@ -7,13 +7,13 @@ import {
   IconButton,
   TextareaAutosize,
   TextField,
+  Tooltip,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { IProduct } from '../../interfaces';
 import './ProductEditor.scss';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { hasErrorsFromKey } from '../../common';
 
 export interface ProductEditorProps {
@@ -25,6 +25,13 @@ export interface ModalProductEditorProps extends ProductEditorProps {
   title: string;
   isOpen?: boolean;
   onClose?: () => void;
+}
+
+export interface ConfirmButtonProps {
+  isSubmitting: boolean;
+  hasErrors: boolean;
+  errorMessage?: string;
+  onClick?: () => void;
 }
 
 const defaultIntialValues = Object.freeze({
@@ -45,7 +52,36 @@ const valuesSchema = yup.object().shape({
   outOfStock: yup.bool().default(false),
 });
 
-function ProductEditor({ initialValues, onSubmit }: ProductEditorProps): JSX.Element {
+function ConfirmButton({ isSubmitting, hasErrors, errorMessage, onClick }: ConfirmButtonProps) {
+  const handleConfirmation = () => {
+    if (onClick) onClick();
+  };
+
+  const button = (
+    <Button
+      type="button"
+      variant="outlined"
+      color="primary"
+      className="product-editor__submit-button"
+      disabled={isSubmitting || hasErrors}
+      onClick={() => handleConfirmation()}
+    >
+      Confirm
+    </Button>
+  );
+
+  if (hasErrors) {
+    return (
+      <Tooltip title={errorMessage || ''} className="product-editor__submit-button-tooltip">
+        <span>{button}</span>
+      </Tooltip>
+    );
+  }
+
+  return button;
+}
+
+function ProductEditor({ initialValues, onSubmit }: ProductEditorProps) {
   return (
     <Formik
       initialValues={initialValues || defaultIntialValues}
@@ -140,16 +176,12 @@ function ProductEditor({ initialValues, onSubmit }: ProductEditorProps): JSX.Ele
                 checked={Boolean(values.outOfStock)}
               />
             </label>
-            {hasErrors && <ErrorMessage message={parsedErrors[0]} />}
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary"
-              className="product-editor__submit-button"
-              disabled={isSubmitting || hasErrors}
-            >
-              Confirm
-            </Button>
+            <ConfirmButton
+              isSubmitting={isSubmitting}
+              hasErrors={hasErrors}
+              errorMessage={parsedErrors[0]}
+              onClick={handleSubmit}
+            />
           </form>
         );
       }}
@@ -168,12 +200,20 @@ function ModalProductEditor({
   };
 
   return (
-    <Dialog disableEnforceFocus disableAutoFocus open={!!isOpen} onClose={handleCloseModal}>
-      {title && <DialogTitle>{title}</DialogTitle>}
-      <DialogContent className="product-editor">
+    <Dialog
+      disableEnforceFocus
+      disableAutoFocus
+      open={!!isOpen}
+      onClose={handleCloseModal}
+      className="product-editor"
+    >
+      <DialogTitle className="product-editor__title">
+        {title || ''}
         <IconButton onClick={handleCloseModal} aria-label="Close Editor">
           <CloseIcon />
         </IconButton>
+      </DialogTitle>
+      <DialogContent className="product-editor__content">
         <ProductEditor {...restOfProps} />
       </DialogContent>
     </Dialog>
