@@ -1,20 +1,20 @@
 import { render, RenderResult, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import { ProductEditor } from './ProductEditor';
+import ProductEditor from './ProductEditor';
 
 const renderComponent = async (props = {}) => {
   let methods = {};
 
   await act(async () => {
-    const renderMethods = render(<ProductEditor {...props} />);
+    const renderMethods = render(<ProductEditor isOpen {...props} />);
     methods = { ...renderMethods };
   });
 
   return methods as RenderResult;
 };
 
-it('Renders correctly without initial values', async () => {
+it('Should render correctly without initial values', async () => {
   const { getByLabelText, getByRole } = await renderComponent();
 
   expect(getByLabelText('Title')).toHaveValue('');
@@ -23,10 +23,10 @@ it('Renders correctly without initial values', async () => {
   expect(getByLabelText('Image URL')).toHaveValue('');
   expect(getByLabelText('Image Description')).toHaveValue('');
   expect(getByLabelText('Is Out of Stock?')).not.toBeChecked();
-  expect(getByRole('button')).toBeDisabled();
+  expect(getByRole('button', { name: 'Confirm' })).toBeDisabled();
 });
 
-it('Renders correctly with initial values', async () => {
+it('Should render correctly with initial values', async () => {
   const initialValues = {
     title: 'Smart Watch',
     description: 'This is a nice smart watch used to monitor things',
@@ -44,16 +44,25 @@ it('Renders correctly with initial values', async () => {
   expect(getByLabelText('Image URL')).toHaveValue(initialValues.imageSrc);
   expect(getByLabelText('Image Description')).toHaveValue(initialValues.imageLabel);
   expect(getByLabelText('Is Out of Stock?')).toBeChecked();
-  expect(getByRole('button')).toBeEnabled();
+  expect(getByRole('button', { name: 'Confirm' })).toBeEnabled();
 });
 
-it('Renders correct title', async () => {
+it('Should render title', async () => {
   const { getByText } = await renderComponent({ title: 'This is a form' });
 
   expect(getByText('This is a form')).toBeVisible();
 });
 
-it('Calls onSubmit handler with correct values', async () => {
+it('Should call onClose handle', async () => {
+  const onClose = jest.fn();
+  const { getByRole } = await renderComponent({ onClose });
+
+  userEvent.click(getByRole('button', { name: 'Close Editor' }));
+
+  expect(onClose).toBeCalled();
+});
+
+it('Should call onSubmit handler with correct values', async () => {
   const onSubmit = jest.fn();
   const { getByRole, getByLabelText } = await renderComponent({ onSubmit });
 
@@ -86,7 +95,7 @@ it('Calls onSubmit handler with correct values', async () => {
   });
 
   await act(async () => {
-    userEvent.click(getByRole('button'));
+    userEvent.click(getByRole('button', { name: 'Confirm' }));
   });
 
   expect(onSubmit).toBeCalledWith({
