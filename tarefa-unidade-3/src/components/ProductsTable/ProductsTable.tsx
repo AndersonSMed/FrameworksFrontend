@@ -14,13 +14,15 @@ import CheckedIcon from '@material-ui/icons/CheckBox';
 import UncheckedIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { formatPrice } from '../../common';
-import { IProductWithKey } from '../../interfaces';
+import { formatPrice, getProductWithoutUUID } from '../../common';
+import { IProduct, IProductWithKey } from '../../interfaces';
 import './ProductsTable.scss';
 import ProductEditor from '../ProductEditor/ProductEditor';
 
 export interface ProductsTableProps {
   items: IProductWithKey[];
+  onDelete?: (uuid: string) => void;
+  onEdit?: (uuid: string, productData: IProduct) => void;
 }
 
 export interface IEditorModal {
@@ -28,17 +30,28 @@ export interface IEditorModal {
   product?: IProductWithKey;
 }
 
-function ProductsTable({ items }: ProductsTableProps): JSX.Element {
+// TODO: Add a confirmation dialog when clicking on delete product
+function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Element {
   const [editorModal, setEditorModal] = useState<IEditorModal>({
     isOpen: false,
   });
+  const editorInitialValues = editorModal.product
+    ? getProductWithoutUUID(editorModal.product)
+    : undefined;
 
-  const handleProductEdition = (product: IProductWithKey) => () => {
+  const openProductEditor = (product: IProductWithKey) => () => {
     setEditorModal({ isOpen: true, product });
   };
-  const handleProductRemove = (product: IProductWithKey) => () => {};
-  const handleCloseModal = () => {
+  const closeProductEditor = () => {
     setEditorModal((previousData) => ({ ...previousData, isOpen: false }));
+  };
+
+  const handleProductDelete = (product: IProductWithKey) => () => {
+    if (onDelete) onDelete(product.uuid);
+  };
+  const handleEditProduct = (product: IProduct) => {
+    if (onEdit) onEdit(editorModal.product?.uuid || '', product);
+    closeProductEditor();
   };
 
   return (
@@ -97,7 +110,7 @@ function ProductsTable({ items }: ProductsTableProps): JSX.Element {
                       <span>
                         <IconButton
                           aria-label={`Edit ${product.title}`}
-                          onClick={handleProductEdition(product)}
+                          onClick={openProductEditor(product)}
                         >
                           <EditIcon />
                         </IconButton>
@@ -107,7 +120,7 @@ function ProductsTable({ items }: ProductsTableProps): JSX.Element {
                       <span>
                         <IconButton
                           aria-label={`Delete ${product.title}`}
-                          onClick={handleProductRemove(product)}
+                          onClick={handleProductDelete(product)}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -130,9 +143,9 @@ function ProductsTable({ items }: ProductsTableProps): JSX.Element {
       <ProductEditor
         isOpen={editorModal.isOpen}
         title={editorModal.product ? `Editing ${editorModal.product.title}` : ''}
-        initialValues={editorModal.product ? editorModal.product : undefined}
-        onClose={handleCloseModal}
-        onSubmit={() => {}}
+        initialValues={editorInitialValues}
+        onClose={closeProductEditor}
+        onSubmit={handleEditProduct}
       />
     </div>
   );

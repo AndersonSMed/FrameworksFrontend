@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ProductsTable from './ProductsTable';
 
@@ -57,20 +57,57 @@ it('Should show message when there are no items', () => {
   expect(getByText('No products were found')).toBeVisible();
 });
 
-// it('Should show modal when clicking on edit action', async () => {
-//   const { getByRole, getByText, queryByText } = renderComponent();
+it('Should show modal when clicking on edit action', async () => {
+  const { getByRole, getByLabelText, getByText } = renderComponent();
 
-//   await act(async () => {
-//     userEvent.click(getByRole('button', { name: 'Edit Cooler' }));
-//   });
+  await act(async () => {
+    userEvent.click(getByRole('button', { name: 'Edit Cooler' }));
+  });
 
-//   expect(getByText('Editing Cooler')).toBeVisible();
+  expect(getByText('Editing Cooler')).toBeVisible();
+  expect(getByLabelText('Title')).toHaveValue('Cooler');
+  expect(getByLabelText('Description')).toHaveValue('This is a Cooler');
+  expect(getByLabelText('Price')).toHaveValue(2000);
+  expect(getByLabelText('Is Out of Stock?')).toBeChecked();
 
-//   userEvent.click(getByRole('button', { name: 'Close Editor' }));
+  userEvent.click(getByRole('button', { name: 'Close Editor' }));
 
-//   expect(queryByText('Editing Cooler')).toBeNull();
-// });
+  expect(getByText('Editing Cooler')).not.toBeVisible();
+});
 
-// it('Should call handler after editing a product', () => {});
+it('Should call handler after editing a product', async () => {
+  const onEdit = jest.fn();
+  const { getByRole, getByLabelText, getByText } = renderComponent({ onEdit });
 
-// it('Should remove product when clicking on remove action', () => {});
+  await act(async () => {
+    userEvent.click(getByRole('button', { name: 'Edit Cooler' }));
+  });
+
+  await act(async () => {
+    fireEvent.change(getByLabelText('Description'), {
+      target: { value: 'Some test description' },
+    });
+  });
+
+  await act(async () => {
+    userEvent.click(getByRole('button', { name: 'Confirm' }));
+  });
+
+  expect(onEdit).toBeCalledWith('7480f3cb-6de9-4b81-b514-544a3117cb86', {
+    title: 'Cooler',
+    description: 'Some test description',
+    price: 2000.0,
+    outOfStock: true,
+  });
+
+  expect(getByText('Editing Cooler')).not.toBeVisible();
+});
+
+it('Should call handler after delete a product', () => {
+  const onDelete = jest.fn();
+  const { getByRole } = renderComponent({ onDelete });
+
+  userEvent.click(getByRole('button', { name: 'Delete Iwo 8 lite smartwatch' }));
+
+  expect(onDelete).toBeCalledWith('869c6d8f-1174-462f-bf31-5204c8e7f9ee');
+});
