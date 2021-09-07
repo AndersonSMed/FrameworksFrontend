@@ -38,9 +38,53 @@ const homeSlice = createSlice({
         (product) => product.title.toLowerCase().search(action.payload.toLowerCase()) !== -1
       ),
     }),
+    addProductToCart: (state, action) => {
+      const { cartItems, products } = state;
+
+      const hasProductInCart = cartItems.find((item) => item.productId === action.payload);
+      const productInfo = products.find((product) => product.productId === action.payload);
+      const newCartItem = {
+        productId: productInfo?.productId || '',
+        title: productInfo?.title || '',
+        price: productInfo?.price || 0,
+        quantity: 1,
+      } as ICartItem;
+
+      return {
+        ...state,
+        cartItems: hasProductInCart
+          ? cartItems.map((item) => {
+              return item.productId === action.payload
+                ? { ...item, quantity: item.quantity + 1 }
+                : item;
+            })
+          : [...cartItems, newCartItem],
+      };
+    },
+    removeProductFromCart: (state, action) => {
+      const newCartItems = state.cartItems.map((item) => {
+        return item.productId === action.payload ? { ...item, quantity: item.quantity - 1 } : item;
+      });
+
+      return {
+        ...state,
+        cartItems: newCartItems.filter((item) => item.quantity > 0),
+      };
+    },
+    deleteProductFromCart: (state, action) => ({
+      ...state,
+      cartItems: state.cartItems.filter((item) => item.productId !== action.payload),
+    }),
   },
 });
 
-export const { updateIsLoading, updateCartItems, updateProducts, filterProducts } =
-  homeSlice.actions;
+export const {
+  updateIsLoading,
+  updateCartItems,
+  updateProducts,
+  filterProducts,
+  addProductToCart,
+  removeProductFromCart,
+  deleteProductFromCart,
+} = homeSlice.actions;
 export default homeSlice.reducer;

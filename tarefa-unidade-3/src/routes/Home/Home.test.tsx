@@ -1,9 +1,10 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import store from '../../store';
+import { configureStore } from '@reduxjs/toolkit';
 import Home from './Home';
+import homeSlice from '../../store/slices/homeSlice';
 
 jest.mock('axios', () => ({
   defaults: {},
@@ -30,7 +31,7 @@ jest.mock('axios', () => ({
               imageLabel: '',
               imageSrc: '',
               price: 1000.1,
-              outOfStock: true,
+              outOfStock: false,
             },
           },
         ],
@@ -39,6 +40,10 @@ jest.mock('axios', () => ({
 }));
 
 const renderComponent = () => {
+  const store = configureStore({
+    reducer: { home: homeSlice },
+  });
+
   return render(
     <Provider store={store}>
       <BrowserRouter>
@@ -64,17 +69,67 @@ it('Should show correct products after search', async () => {
 
   await findByText('Sample Product');
 
-  act(() => {
-    fireEvent.change(getByPlaceholderText('Search for product'), { target: { value: 'ano' } });
-  });
+  fireEvent.change(getByPlaceholderText('Search for product'), { target: { value: 'ano' } });
 
   expect(getByText('Another Sample Product')).toBeVisible();
   expect(queryByText('Sample Product')).toBeNull();
 
-  act(() => {
-    userEvent.click(getByRole('button', { name: 'Clear Search Field' }));
-  });
+  userEvent.click(getByRole('button', { name: 'Clear Search Field' }));
 
   expect(getByText('Sample Product')).toBeVisible();
   expect(getByText('Another Sample Product')).toBeVisible();
+});
+
+it('Should add products to cart', async () => {
+  const { findAllByRole, getByRole } = renderComponent();
+
+  const productButtons = await findAllByRole('button', { name: 'Add to Cart' });
+
+  expect(productButtons.length).toEqual(2);
+
+  userEvent.click(productButtons[0]);
+  userEvent.click(productButtons[1]);
+  userEvent.click(getByRole('button', { name: 'Open cart' }));
+
+  expect(getByRole('button', { name: 'Add one more Sample Product' })).toBeVisible();
+  expect(getByRole('button', { name: 'Add one more Another Sample Product' })).toBeVisible();
+});
+
+it('Should change cart products', async () => {
+  const { findAllByRole, getByRole, queryByRole, getByText } = renderComponent();
+
+  const productButtons = await findAllByRole('button', { name: 'Add to Cart' });
+
+  expect(productButtons.length).toEqual(2);
+
+  userEvent.click(productButtons[0]);
+  userEvent.click(productButtons[1]);
+  userEvent.click(getByRole('button', { name: 'Open cart' }));
+
+  // Adding 6 more products to cart
+  userEvent.click(getByRole('button', { name: 'Add one more Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Add one more Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Add one more Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Add one more Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Add one more Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Add one more Sample Product' }));
+
+  expect(getByText('Total: 7')).toBeVisible();
+  expect(getByText('R$700.70')).toBeVisible();
+
+  // Removing 4 products from cart
+  userEvent.click(getByRole('button', { name: 'Remove one Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Remove one Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Remove one Sample Product' }));
+  userEvent.click(getByRole('button', { name: 'Remove one Sample Product' }));
+
+  expect(getByText('Total: 3')).toBeVisible();
+  expect(getByText('R$300.30')).toBeVisible();
+
+  // Removing all products from cart
+  userEvent.click(getByRole('button', { name: 'Delete Sample Product from cart' }));
+  userEvent.click(getByRole('button', { name: 'Remove one Another Sample Product' }));
+
+  expect(queryByRole('button', { name: 'Add one more Sample Product' })).toBeNull();
+  expect(queryByRole('button', { name: 'Add one more Another Sample Product' })).toBeNull();
 });

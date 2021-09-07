@@ -24,7 +24,7 @@ const renderComponent = (props = {}) => {
 it('Renders correctly', () => {
   const { getByText, getByRole } = renderComponent();
 
-  expect(getByText('2')).toBeVisible();
+  expect(getByText('15')).toBeVisible();
   expect(getByRole('button', { name: 'Open cart' })).toBeVisible();
 });
 
@@ -92,7 +92,7 @@ it('Should add handler with correct values after clicked on delete item', () => 
   });
 
   act(() => {
-    userEvent.click(getByRole('button', { name: 'Delete Sample Item from list' }));
+    userEvent.click(getByRole('button', { name: 'Delete Sample Item from cart' }));
   });
 
   expect(onChange).toBeCalledWith('delete', '869c6d8f-1174-462f-bf31-5204c8e7f9ee');

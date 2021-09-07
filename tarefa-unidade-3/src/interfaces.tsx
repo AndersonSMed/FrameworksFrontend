@@ -22,3 +22,5 @@ export interface ICartItem {
   price: number;
   quantity: number;
 }
+
+export type TCartAction = 'add' | 'remove' | 'delete';

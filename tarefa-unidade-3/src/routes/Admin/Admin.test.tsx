@@ -3,9 +3,10 @@ import { act, fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from '../../store';
+import { configureStore } from '@reduxjs/toolkit';
 import Admin from './Admin';
 import { API_URL } from '../../api/products';
+import adminSlice from '../../store/slices/adminSlice';
 
 jest.mock('axios', () => ({
   defaults: {},
@@ -44,6 +45,10 @@ jest.mock('axios', () => ({
 }));
 
 const renderComponent = () => {
+  const store = configureStore({
+    reducer: { admin: adminSlice },
+  });
+
   return render(
     <Provider store={store}>
       <BrowserRouter>

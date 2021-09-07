@@ -8,9 +8,46 @@ import { CartItems, Header, ProductList } from '../../components';
 import { loadHomeProducts } from '../../store/thunks/homeThunk';
 import { RootState } from '../../store';
 import './Home.scss';
-import { filterProducts } from '../../store/slices/homeSlice';
+import {
+  addProductToCart,
+  deleteProductFromCart,
+  filterProducts,
+  removeProductFromCart,
+} from '../../store/slices/homeSlice';
+import { TCartAction } from '../../interfaces';
 
 function HeaderActions() {
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state: RootState) => state.home);
+
+  const handleAddProductToCart = (productId: string) => {
+    dispatch(addProductToCart(productId));
+  };
+
+  const handleRemoveProductFromCart = (productId: string) => {
+    dispatch(removeProductFromCart(productId));
+  };
+
+  const handleDeleteProductFromCart = (productId: string) => {
+    dispatch(deleteProductFromCart(productId));
+  };
+
+  const handleCartChange = (actionName: TCartAction, productId: string) => {
+    switch (actionName) {
+      case 'add':
+        handleAddProductToCart(productId);
+        break;
+      case 'remove':
+        handleRemoveProductFromCart(productId);
+        break;
+      case 'delete':
+        handleDeleteProductFromCart(productId);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <Tooltip title="Go to admin page">
@@ -20,7 +57,7 @@ function HeaderActions() {
           </IconButton>
         </Link>
       </Tooltip>
-      <CartItems />
+      <CartItems items={cartItems} onChange={handleCartChange} />
     </>
   );
 }
@@ -62,7 +99,6 @@ function LateralBar() {
   );
 }
 
-// TODO: Create cart logic
 function Home(): JSX.Element {
   const dispatch = useDispatch();
   const { filteredProducts, isLoading } = useSelector((state: RootState) => state.home);
@@ -71,12 +107,16 @@ function Home(): JSX.Element {
     dispatch(loadHomeProducts());
   }, []);
 
+  const handleAddToCart = (productId: string) => {
+    dispatch(addProductToCart(productId));
+  };
+
   return (
     <div className="home">
       <Header actions={<HeaderActions />} />
       <main className="home__main">
         <LateralBar />
-        <ProductList items={filteredProducts} isLoading={isLoading} />
+        <ProductList items={filteredProducts} isLoading={isLoading} onAddToCart={handleAddToCart} />
       </main>
     </div>
   );

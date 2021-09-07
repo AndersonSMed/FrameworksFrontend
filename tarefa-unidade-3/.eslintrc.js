@@ -38,7 +38,7 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['**/*.stories.tsx'],
+        devDependencies: ['**/*.stories.tsx', '**/*.test.tsx'],
       },
     ],
     'jsx-a11y/label-has-associated-control': 0,

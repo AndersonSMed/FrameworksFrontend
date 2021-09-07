@@ -4,15 +4,13 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ICartItem } from '../../interfaces';
+import { ICartItem, TCartAction } from '../../interfaces';
 import './CartItems.scss';
 import { formatPrice } from '../../common';
 
-type CartAction = 'add' | 'remove' | 'delete';
-
 export interface CartItemsProps {
   items: ICartItem[];
-  onChange?: (actionName: CartAction, productId: string) => void;
+  onChange?: (actionName: TCartAction, productId: string) => void;
 }
 
 export interface CartPopoverProps extends CartItemsProps {
@@ -22,12 +20,12 @@ export interface CartPopoverProps extends CartItemsProps {
 }
 
 export interface CartItemProps extends ICartItem {
-  onChange?: (actionName: CartAction, productId: string) => void;
+  onChange?: (actionName: TCartAction, productId: string) => void;
 }
 
 function CartItem({ title, quantity, price, productId, onChange }: CartItemProps) {
   const totalPrice = Number(quantity) * Number(price);
-  const handleClick = (action: CartAction) => () => {
+  const handleClick = (action: TCartAction) => () => {
     if (onChange) onChange(action, productId);
   };
 
@@ -63,11 +61,11 @@ function CartItem({ title, quantity, price, productId, onChange }: CartItemProps
             </IconButton>
           </span>
         </Tooltip>
-        <Tooltip title={`Delete ${title} from list`}>
+        <Tooltip title={`Delete ${title} from cart`}>
           <span>
             <IconButton
               size="small"
-              aria-label={`Delete ${title} from list`}
+              aria-label={`Delete ${title} from cart`}
               onClick={handleClick('delete')}
             >
               <DeleteIcon fontSize="small" color="error" />
@@ -107,7 +105,7 @@ function CartPopover({ items, anchorEl, isOpen, onClose, onChange }: CartPopover
 
 function CartItems({ items, onChange }: CartItemsProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<Element>();
-  const totalItems = items.length;
+  const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
   const isPopoverOpen = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent) => {
