@@ -14,15 +14,15 @@ import CheckedIcon from '@material-ui/icons/CheckBox';
 import UncheckedIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { formatPrice, getProductWithoutUUID } from '../../common';
+import { formatPrice, getProductWithoutId } from '../../common';
 import { IProduct, IProductWithKey } from '../../interfaces';
 import './ProductsTable.scss';
 import ProductEditor from '../ProductEditor/ProductEditor';
 
 export interface ProductsTableProps {
   items: IProductWithKey[];
-  onDelete?: (uuid: string) => void;
-  onEdit?: (uuid: string, productData: IProduct) => void;
+  onDelete?: (productId: string) => void;
+  onEdit?: (productId: string, productData: IProduct) => void;
 }
 
 export interface IEditorModal {
@@ -36,7 +36,7 @@ function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Ele
     isOpen: false,
   });
   const editorInitialValues = editorModal.product
-    ? getProductWithoutUUID(editorModal.product)
+    ? getProductWithoutId(editorModal.product)
     : undefined;
 
   const openProductEditor = (product: IProductWithKey) => () => {
@@ -47,10 +47,10 @@ function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Ele
   };
 
   const handleProductDelete = (product: IProductWithKey) => () => {
-    if (onDelete) onDelete(product.uuid);
+    if (onDelete) onDelete(product.productId);
   };
   const handleEditProduct = (product: IProduct) => {
-    if (onEdit) onEdit(editorModal.product?.uuid || '', product);
+    if (onEdit) onEdit(editorModal.product?.productId || '', product);
     closeProductEditor();
   };
 
@@ -75,7 +75,7 @@ function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Ele
           </TableHead>
           <TableBody>
             {items.map((product) => (
-              <TableRow key={product.uuid}>
+              <TableRow key={product.productId}>
                 <TableCell>{product.title}</TableCell>
                 <TableCell>{product.description}</TableCell>
                 <TableCell>{formatPrice(product.price)}</TableCell>
@@ -105,28 +105,26 @@ function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Ele
                   )}
                 </TableCell>
                 <TableCell align="center">
-                  <div className="products-table__table-actions">
-                    <Tooltip title={`Edit ${product.title}`}>
-                      <span>
-                        <IconButton
-                          aria-label={`Edit ${product.title}`}
-                          onClick={openProductEditor(product)}
-                        >
-                          <EditIcon />
-                        </IconButton>
-                      </span>
-                    </Tooltip>
-                    <Tooltip title={`Delete ${product.title}`}>
-                      <span>
-                        <IconButton
-                          aria-label={`Delete ${product.title}`}
-                          onClick={handleProductDelete(product)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </span>
-                    </Tooltip>
-                  </div>
+                  <Tooltip title={`Edit ${product.title}`}>
+                    <span>
+                      <IconButton
+                        aria-label={`Edit ${product.title}`}
+                        onClick={openProductEditor(product)}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
+                  <Tooltip title={`Delete ${product.title}`}>
+                    <span>
+                      <IconButton
+                        aria-label={`Delete ${product.title}`}
+                        onClick={handleProductDelete(product)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}

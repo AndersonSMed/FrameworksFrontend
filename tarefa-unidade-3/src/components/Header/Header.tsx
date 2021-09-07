@@ -1,3 +1,4 @@
+import Logo from '../../assets/logo.jpg';
 import './Header.scss';
 
 interface HeaderProps {
@@ -15,6 +16,9 @@ function Header({ actions, logoSrc, logoLabel }: HeaderProps): JSX.Element {
   );
 }
 
-Header.defaultProps = Object.freeze({});
+Header.defaultProps = Object.freeze({
+  logoSrc: Logo,
+  logoLabel: 'A logo using a camera as background',
+});
 
 export default Header;

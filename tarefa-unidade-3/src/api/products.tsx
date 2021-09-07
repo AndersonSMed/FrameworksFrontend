@@ -2,7 +2,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { IProduct } from '../interfaces';
 
-const ENDPOINT = 'https://api.airtable.com/v0/appbgdYpI9wgVL5fM/Products';
+export const API_URL = 'https://api.airtable.com/v0/appbgdYpI9wgVL5fM/Products';
 const getHeaders = () => {
   const token: string = process.env.REACT_APP_AIRTABLE_API_TOKEN || '';
 
@@ -12,17 +12,24 @@ const getHeaders = () => {
   return { Authorization: `Bearer ${token}` };
 };
 
+axios.defaults.headers = getHeaders();
+
 export function listProducts(): Promise<AxiosResponse<any>> {
-  return axios.get(ENDPOINT, { headers: getHeaders() });
+  return axios.get(API_URL);
 }
 
 export function createProduct(data: IProduct): Promise<AxiosResponse<any>> {
-  return axios.post(ENDPOINT, { headers: getHeaders(), data: { records: [{ fields: data }] } });
+  return axios.post(API_URL, { records: [{ fields: data }] });
 }
 
+// export function deleteProduct(id: string): Promise<AxiosResponse<any>> {
+//   return axios.delete(API_URL, {
+//     records: [{ id, deleted: true }],
+//   });
+// }
+
 export function updateProduct(id: string, data: IProduct): Promise<AxiosResponse<any>> {
-  return axios.put(ENDPOINT, {
-    headers: getHeaders(),
-    data: { records: [{ id, fields: data }] },
+  return axios.put(API_URL, {
+    records: [{ id, fields: data }],
   });
 }

@@ -4,12 +4,12 @@ import './ProductList.scss';
 
 export interface ProductListProps {
   items: IProductWithKey[];
-  onAddToCart?: (uuid: string) => void;
+  onAddToCart?: (productId: string) => void;
 }
 
 function ProductList({ items, onAddToCart }: ProductListProps): JSX.Element {
-  const handleAddToCart = (uuid: string) => () => {
-    if (onAddToCart) onAddToCart(uuid);
+  const handleAddToCart = (productId: string) => () => {
+    if (onAddToCart) onAddToCart(productId);
   };
   const hasItems = items.length > 0;
 
@@ -17,7 +17,11 @@ function ProductList({ items, onAddToCart }: ProductListProps): JSX.Element {
     <div className="product-list">
       {hasItems ? (
         items.map((item) => (
-          <ProductDetails key={item.uuid} onAddToCart={handleAddToCart(item.uuid)} {...item} />
+          <ProductDetails
+            key={item.productId}
+            onAddToCart={handleAddToCart(item.productId)}
+            {...item}
+          />
         ))
       ) : (
         <div className="product-list__empty-message">No products were found</div>

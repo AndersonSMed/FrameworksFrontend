@@ -1,0 +1,16 @@
+.admin {
+  &__wrapper {
+    margin: auto;
+    margin-top: 32px;
+    width: 60%;
+  }
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+}

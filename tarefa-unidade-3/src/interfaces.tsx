@@ -8,7 +8,7 @@ export interface IProduct {
 }
 
 export interface IProductWithKey extends IProduct {
-  uuid: string;
+  productId: string;
 }
 
 export interface IProductApiReturn {
@@ -17,7 +17,7 @@ export interface IProductApiReturn {
 }
 
 export interface ICartItem {
-  uuid: string;
+  productId: string;
   title: string;
   price: number;
   quantity: number;

@@ -1,4 +1,4 @@
-import { IProductWithKey, IProductApiReturn } from './interfaces';
+import { IProductWithKey, IProductApiReturn, IProduct } from './interfaces';
 
 export function formatPrice(price: number | string): string {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
@@ -11,6 +11,13 @@ export function hasErrorsFromKey(key: string, errorList: string[]): boolean {
   return errorList[0].startsWith(key);
 }
 
-export function normalizeApiReturn(apiReturn: IProductApiReturn): IProductWithKey {
-  return { uuid: apiReturn.id, ...apiReturn.fields };
+export function normalizeApiProducts(apiReturn: IProductApiReturn): IProductWithKey {
+  return { productId: apiReturn.id, ...apiReturn.fields };
+}
+
+export function getProductWithoutId(product: IProductWithKey): IProduct {
+  return Object.entries(product).reduce(
+    (acc, [key, value]) => (key === 'productId' ? acc : { ...acc, [key]: value }),
+    { price: 0, title: '', description: '' }
+  );
 }

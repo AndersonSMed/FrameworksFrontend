@@ -6,6 +6,7 @@ import store from '../../store';
 import Home from './Home';
 
 jest.mock('axios', () => ({
+  defaults: {},
   get: () =>
     Promise.resolve({
       data: {
@@ -14,6 +15,7 @@ jest.mock('axios', () => ({
             id: 'recNzHfKPd44H4Mvm',
             fields: {
               title: 'Sample Product',
+              description: 'Sample Product Description',
               price: 100.1,
               outOfStock: false,
             },
@@ -22,6 +24,7 @@ jest.mock('axios', () => ({
             id: 'recNzHfKPd4431Mvg',
             fields: {
               title: 'Another Sample Product',
+              description: 'Another Sample Product Description',
               price: 1000.1,
               outOfStock: true,
             },

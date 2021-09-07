@@ -4,9 +4,8 @@ import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/logo.jpg';
 import { CartItems, Header, ProductList } from '../../components';
-import { loadProducts } from '../../store/thunks/homeThunk';
+import { loadHomeProducts } from '../../store/thunks/homeThunk';
 import { RootState } from '../../store';
 import './Home.scss';
 import { filterProducts } from '../../store/slices/homeSlice';
@@ -63,21 +62,19 @@ function LateralBar() {
   );
 }
 
+// TODO: Create cart logic
+// TODO: Add loader when products are loading
 function Home(): JSX.Element {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.home.filteredProducts);
 
   useEffect(() => {
-    dispatch(loadProducts());
+    dispatch(loadHomeProducts());
   }, []);
 
   return (
     <div className="home">
-      <Header
-        logoLabel="A logo using a camera as background"
-        logoSrc={Logo}
-        actions={<HeaderActions />}
-      />
+      <Header actions={<HeaderActions />} />
       <main className="home__main">
         <LateralBar />
         <ProductList items={products} />

@@ -12,7 +12,7 @@ type CartAction = 'add' | 'remove' | 'delete';
 
 export interface CartItemsProps {
   items: ICartItem[];
-  onChange?: (actionName: CartAction, uuid: string) => void;
+  onChange?: (actionName: CartAction, productId: string) => void;
 }
 
 export interface CartPopoverProps extends CartItemsProps {
@@ -22,13 +22,13 @@ export interface CartPopoverProps extends CartItemsProps {
 }
 
 export interface CartItemProps extends ICartItem {
-  onChange?: (actionName: CartAction, uuid: string) => void;
+  onChange?: (actionName: CartAction, productId: string) => void;
 }
 
-function CartItem({ title, quantity, price, uuid, onChange }: CartItemProps) {
+function CartItem({ title, quantity, price, productId, onChange }: CartItemProps) {
   const totalPrice = Number(quantity) * Number(price);
   const handleClick = (action: CartAction) => () => {
-    if (onChange) onChange(action, uuid);
+    if (onChange) onChange(action, productId);
   };
 
   return (
@@ -96,7 +96,7 @@ function CartPopover({ items, anchorEl, isOpen, onClose, onChange }: CartPopover
     >
       <div className="cart-items__popover-container">
         {items.length > 0 ? (
-          items.map((item) => <CartItem key={item.uuid} onChange={onChange} {...item} />)
+          items.map((item) => <CartItem key={item.productId} onChange={onChange} {...item} />)
         ) : (
           <span>There are no items on cart</span>
         )}

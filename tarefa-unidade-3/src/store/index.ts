@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import homeReducer from './slices/homeSlice';
+import adminSlice from './slices/adminSlice';
+import homeSlice from './slices/homeSlice';
 
 const store = configureStore({
-  reducer: { home: homeReducer },
+  reducer: { admin: adminSlice, home: homeSlice },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
