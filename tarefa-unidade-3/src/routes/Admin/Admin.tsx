@@ -3,19 +3,28 @@ import { Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Header, ProductEditor, ProductsTable } from '../../components';
 import { RootState } from '../../store';
-import { createAdminProduct, loadAdminProducts } from '../../store/thunks/adminThunk';
+import {
+  createAdminProduct,
+  deleteAdminProduct,
+  loadAdminProducts,
+  updateAdminProduct,
+} from '../../store/thunks/adminThunk';
 import './Admin.scss';
 import { IProduct } from '../../interfaces';
 
 // TODO: Add loader when products are loading
-// TODO: Enable product edition
-// TODO: Enable product remotion
 function Admin(): JSX.Element {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.admin.products);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleProductEdition = (productId: string, productData: IProduct) => {};
+  const handleProductEdition = (productId: string, productData: IProduct) => {
+    dispatch(updateAdminProduct(productId, productData));
+  };
+
+  const handleProductDeletion = (productId: string) => {
+    dispatch(deleteAdminProduct(productId));
+  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -46,7 +55,11 @@ function Admin(): JSX.Element {
             New Product
           </Button>
         </h1>
-        <ProductsTable items={products} onEdit={handleProductEdition} />
+        <ProductsTable
+          items={products}
+          onEdit={handleProductEdition}
+          onDelete={handleProductDeletion}
+        />
         <ProductEditor
           isOpen={isModalOpen}
           title="Creating New Product"

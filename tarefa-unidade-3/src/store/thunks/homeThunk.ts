@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Dispatch } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { listProducts } from '../../api/products';
 import { normalizeApiProducts } from '../../common';
 import { IProductApiReturn } from '../../interfaces';
@@ -14,6 +15,7 @@ export const loadHomeProducts = () => async (dispatch: Dispatch) => {
 
     dispatch(updateProducts(normalizedProducts));
   } catch (error) {
+    toast.error('There was an error while loading the products, try again later');
     console.error(error);
   } finally {
     dispatch(updateIsLoading(false));

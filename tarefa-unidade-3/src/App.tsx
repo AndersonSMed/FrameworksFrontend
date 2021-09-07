@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { Admin, Home } from './routes';
 import store from './store';
 import './reset.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App(): JSX.Element {
   return (

@@ -10,6 +10,8 @@ import { API_URL } from '../../api/products';
 jest.mock('axios', () => ({
   defaults: {},
   post: jest.fn(() => Promise.resolve()),
+  put: jest.fn(() => Promise.resolve()),
+  delete: jest.fn(() => Promise.resolve()),
   get: () =>
     Promise.resolve({
       data: {
@@ -19,6 +21,8 @@ jest.mock('axios', () => ({
             fields: {
               title: 'Sample Product',
               description: 'Sample Product Description',
+              imageLabel: '',
+              imageSrc: '',
               price: 100.1,
               outOfStock: false,
             },
@@ -28,6 +32,8 @@ jest.mock('axios', () => ({
             fields: {
               title: 'Another Sample Product',
               description: 'Another Sample Product Description',
+              imageLabel: '',
+              imageSrc: '',
               price: 1000.1,
               outOfStock: true,
             },
@@ -101,12 +107,10 @@ it('Should call api with correct values after create product', async () => {
 });
 
 it('Should call api with correct values after edition', async () => {
-  const { findByText, getByLabelText, getByRole } = renderComponent();
-
-  await findByText('Sample Product');
+  const { findByRole, getByLabelText, getByRole } = renderComponent();
 
   await act(async () => {
-    userEvent.click(getByRole('button', { name: 'Edit Sample Product' }));
+    userEvent.click(await findByRole('button', { name: 'Edit Sample Product' }));
   });
 
   await act(async () => {
@@ -122,14 +126,30 @@ it('Should call api with correct values after edition', async () => {
   });
 
   expect(axios.put).toHaveBeenLastCalledWith(API_URL, {
-    id: 'recNzHfKPd44H4Mvm',
-    fields: {
-      title: 'New Sample Product Title',
-      description: 'Sample Product Description',
-      price: 100.1,
-      imageLabel: '',
-      imageSrc: '',
-      outOfStock: true,
-    },
+    records: [
+      {
+        id: 'recNzHfKPd44H4Mvm',
+        fields: {
+          title: 'New Sample Product Title',
+          description: 'Sample Product Description',
+          price: 100.1,
+          imageLabel: '',
+          imageSrc: '',
+          outOfStock: true,
+        },
+      },
+    ],
+  });
+});
+
+it('Should call api with correct values after deleting it', async () => {
+  const { findByRole } = renderComponent();
+
+  await act(async () => {
+    userEvent.click(await findByRole('button', { name: 'Delete Sample Product' }));
+  });
+
+  expect(axios.delete).toHaveBeenLastCalledWith(API_URL, {
+    params: { records: ['recNzHfKPd44H4Mvm'] },
   });
 });

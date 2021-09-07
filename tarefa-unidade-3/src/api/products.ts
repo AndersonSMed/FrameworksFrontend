@@ -18,18 +18,21 @@ export function listProducts(): Promise<AxiosResponse<any>> {
   return axios.get(API_URL);
 }
 
-export function createProduct(data: IProduct): Promise<AxiosResponse<any>> {
-  return axios.post(API_URL, { records: [{ fields: data }] });
+export function createProduct(productData: IProduct): Promise<AxiosResponse<any>> {
+  return axios.post(API_URL, { records: [{ fields: productData }] });
 }
 
-// export function deleteProduct(id: string): Promise<AxiosResponse<any>> {
-//   return axios.delete(API_URL, {
-//     records: [{ id, deleted: true }],
-//   });
-// }
+export function deleteProduct(productId: string): Promise<AxiosResponse<any>> {
+  return axios.delete(API_URL, {
+    params: { records: [productId] },
+  });
+}
 
-export function updateProduct(id: string, data: IProduct): Promise<AxiosResponse<any>> {
+export function updateProduct(
+  productId: string,
+  productData: IProduct
+): Promise<AxiosResponse<any>> {
   return axios.put(API_URL, {
-    records: [{ id, fields: data }],
+    records: [{ id: productId, fields: productData }],
   });
 }

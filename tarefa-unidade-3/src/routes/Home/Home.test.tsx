@@ -16,6 +16,8 @@ jest.mock('axios', () => ({
             fields: {
               title: 'Sample Product',
               description: 'Sample Product Description',
+              imageLabel: '',
+              imageSrc: '',
               price: 100.1,
               outOfStock: false,
             },
@@ -25,6 +27,8 @@ jest.mock('axios', () => ({
             fields: {
               title: 'Another Sample Product',
               description: 'Another Sample Product Description',
+              imageLabel: '',
+              imageSrc: '',
               price: 1000.1,
               outOfStock: true,
             },
