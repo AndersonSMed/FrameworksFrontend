@@ -3,12 +3,23 @@
   flex-wrap: wrap;
 
   .product-details,
+  &__spinner,
   &__empty-message {
     margin: 16px;
   }
 
+  &__spinner,
   &__empty-message {
     flex-grow: 1;
+  }
+
+  &__spinner {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__empty-message {
     font-size: 1.5rem;
     text-align: center;
   }

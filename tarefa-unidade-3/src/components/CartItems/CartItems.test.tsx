@@ -35,7 +35,7 @@ it('Shows empty message when there are no items', () => {
     userEvent.click(getByRole('button', { name: 'Open cart' }));
   });
 
-  expect(getByText('There are no items on cart')).toBeVisible();
+  expect(getByText('Cart is empty')).toBeVisible();
 });
 
 it('Shows correct values after opening cart', () => {

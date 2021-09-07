@@ -98,7 +98,7 @@ function CartPopover({ items, anchorEl, isOpen, onClose, onChange }: CartPopover
         {items.length > 0 ? (
           items.map((item) => <CartItem key={item.productId} onChange={onChange} {...item} />)
         ) : (
-          <span>There are no items on cart</span>
+          <span>Cart is empty</span>
         )}
       </div>
     </Popover>

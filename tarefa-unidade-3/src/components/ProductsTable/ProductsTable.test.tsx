@@ -57,6 +57,12 @@ it('Should show message when there are no items', () => {
   expect(getByText('No products were found')).toBeVisible();
 });
 
+it('Should show spinner when is loading', () => {
+  const { getByRole } = renderComponent({ isLoading: true });
+
+  expect(getByRole('img', { name: 'Loading' })).toBeVisible();
+});
+
 it('Should show modal when clicking on edit action', async () => {
   const { getByRole, getByLabelText, getByText } = renderComponent();
 

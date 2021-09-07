@@ -1,13 +1,15 @@
 import { IProductWithKey } from '../../interfaces';
 import ProductDetails from '../ProductDetails/ProductDetails';
+import Spinner from '../Spinner/Spinner';
 import './ProductList.scss';
 
 export interface ProductListProps {
   items: IProductWithKey[];
+  isLoading: boolean;
   onAddToCart?: (productId: string) => void;
 }
 
-function ProductList({ items, onAddToCart }: ProductListProps): JSX.Element {
+function ProductList({ items, isLoading, onAddToCart }: ProductListProps): JSX.Element {
   const handleAddToCart = (productId: string) => () => {
     if (onAddToCart) onAddToCart(productId);
   };
@@ -15,16 +17,24 @@ function ProductList({ items, onAddToCart }: ProductListProps): JSX.Element {
 
   return (
     <div className="product-list">
-      {hasItems ? (
-        items.map((item) => (
-          <ProductDetails
-            key={item.productId}
-            onAddToCart={handleAddToCart(item.productId)}
-            {...item}
-          />
-        ))
+      {isLoading ? (
+        <div className="product-list__spinner">
+          <Spinner />
+        </div>
       ) : (
-        <div className="product-list__empty-message">No products were found</div>
+        <>
+          {hasItems ? (
+            items.map((item) => (
+              <ProductDetails
+                key={item.productId}
+                onAddToCart={handleAddToCart(item.productId)}
+                {...item}
+              />
+            ))
+          ) : (
+            <div className="product-list__empty-message">No products were found</div>
+          )}
+        </>
       )}
     </div>
   );
@@ -32,6 +42,7 @@ function ProductList({ items, onAddToCart }: ProductListProps): JSX.Element {
 
 ProductList.defaultProps = Object.freeze({
   items: [],
+  isLoading: false,
 });
 
 export default ProductList;

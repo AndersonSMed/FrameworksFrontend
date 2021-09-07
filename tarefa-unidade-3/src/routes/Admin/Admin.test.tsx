@@ -103,7 +103,6 @@ it('Should call api with correct values after create product', async () => {
       },
     ],
   });
-  expect(getByText('Creating New Product')).not.toBeVisible();
 });
 
 it('Should call api with correct values after edition', async () => {

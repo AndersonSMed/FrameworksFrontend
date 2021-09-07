@@ -18,9 +18,11 @@ import { formatPrice, getProductWithoutId } from '../../common';
 import { IProduct, IProductWithKey } from '../../interfaces';
 import './ProductsTable.scss';
 import ProductEditor from '../ProductEditor/ProductEditor';
+import Spinner from '../Spinner/Spinner';
 
 export interface ProductsTableProps {
   items: IProductWithKey[];
+  isLoading: boolean;
   onDelete?: (productId: string) => void;
   onEdit?: (productId: string, productData: IProduct) => void;
 }
@@ -31,7 +33,7 @@ export interface IEditorModal {
 }
 
 // TODO: Add a confirmation dialog when clicking on delete product
-function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Element {
+function ProductsTable({ items, isLoading, onEdit, onDelete }: ProductsTableProps): JSX.Element {
   const [editorModal, setEditorModal] = useState<IEditorModal>({
     isOpen: false,
   });
@@ -74,66 +76,76 @@ function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Ele
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((product) => (
-              <TableRow key={product.productId}>
-                <TableCell>{product.title}</TableCell>
-                <TableCell>{product.description}</TableCell>
-                <TableCell>{formatPrice(product.price)}</TableCell>
-                <TableCell>
-                  {product.imageSrc ? (
-                    <a href={product.imageSrc} target="_blank" rel="noreferrer">
-                      {product.imageSrc}
-                    </a>
-                  ) : (
-                    ''
-                  )}
-                </TableCell>
-                <TableCell>{product.imageLabel}</TableCell>
-                <TableCell align="center">
-                  {product.outOfStock ? (
-                    <CheckedIcon
-                      aria-hidden={false}
-                      role="img"
-                      aria-label={`Product ${product.title} is out of stock`}
-                    />
-                  ) : (
-                    <UncheckedIcon
-                      aria-hidden={false}
-                      role="img"
-                      aria-label={`Product ${product.title} is not out of stock`}
-                    />
-                  )}
-                </TableCell>
-                <TableCell align="center">
-                  <Tooltip title={`Edit ${product.title}`}>
-                    <span>
-                      <IconButton
-                        aria-label={`Edit ${product.title}`}
-                        onClick={openProductEditor(product)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </span>
-                  </Tooltip>
-                  <Tooltip title={`Delete ${product.title}`}>
-                    <span>
-                      <IconButton
-                        aria-label={`Delete ${product.title}`}
-                        onClick={handleProductDelete(product)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </span>
-                  </Tooltip>
-                </TableCell>
-              </TableRow>
-            ))}
-            {items.length === 0 && (
+            {isLoading ? (
               <TableRow>
-                <TableCell colSpan={7} align="center">
-                  No products were found
+                <TableCell align="center" colSpan={7}>
+                  <Spinner />
                 </TableCell>
               </TableRow>
+            ) : (
+              <>
+                {items.map((product) => (
+                  <TableRow key={product.productId}>
+                    <TableCell>{product.title}</TableCell>
+                    <TableCell>{product.description}</TableCell>
+                    <TableCell>{formatPrice(product.price)}</TableCell>
+                    <TableCell>
+                      {product.imageSrc ? (
+                        <a href={product.imageSrc} target="_blank" rel="noreferrer">
+                          {product.imageSrc}
+                        </a>
+                      ) : (
+                        ''
+                      )}
+                    </TableCell>
+                    <TableCell>{product.imageLabel}</TableCell>
+                    <TableCell align="center">
+                      {product.outOfStock ? (
+                        <CheckedIcon
+                          aria-hidden={false}
+                          role="img"
+                          aria-label={`Product ${product.title} is out of stock`}
+                        />
+                      ) : (
+                        <UncheckedIcon
+                          aria-hidden={false}
+                          role="img"
+                          aria-label={`Product ${product.title} is not out of stock`}
+                        />
+                      )}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Tooltip title={`Edit ${product.title}`}>
+                        <span>
+                          <IconButton
+                            aria-label={`Edit ${product.title}`}
+                            onClick={openProductEditor(product)}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </span>
+                      </Tooltip>
+                      <Tooltip title={`Delete ${product.title}`}>
+                        <span>
+                          <IconButton
+                            aria-label={`Delete ${product.title}`}
+                            onClick={handleProductDelete(product)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </span>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {items.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={7} align="center">
+                      No products were found
+                    </TableCell>
+                  </TableRow>
+                )}
+              </>
             )}
           </TableBody>
         </Table>
@@ -151,6 +163,7 @@ function ProductsTable({ items, onEdit, onDelete }: ProductsTableProps): JSX.Ele
 
 ProductsTable.defaultProps = Object.freeze({
   items: [],
+  isLoading: false,
 });
 
 export default ProductsTable;

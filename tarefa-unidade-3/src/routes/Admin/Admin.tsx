@@ -12,10 +12,9 @@ import {
 import './Admin.scss';
 import { IProduct } from '../../interfaces';
 
-// TODO: Add loader when products are loading
 function Admin(): JSX.Element {
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.admin.products);
+  const { isLoading, products } = useSelector((state: RootState) => state.admin);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleProductEdition = (productId: string, productData: IProduct) => {
@@ -51,12 +50,14 @@ function Admin(): JSX.Element {
             onClick={() => {
               setIsModalOpen(true);
             }}
+            disabled={isLoading}
           >
             New Product
           </Button>
         </h1>
         <ProductsTable
           items={products}
+          isLoading={isLoading}
           onEdit={handleProductEdition}
           onDelete={handleProductDeletion}
         />

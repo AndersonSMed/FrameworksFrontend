@@ -5,6 +5,7 @@ export default {
   title: 'Store/ProductList',
   component: ProductList,
   argTypes: {
+    isLoading: { control: 'boolean' },
     items: { control: 'object' },
   },
 } as ComponentMeta<typeof ProductList>;
@@ -13,6 +14,7 @@ const Template: ComponentStory<typeof ProductList> = (args) => <ProductList {...
 
 export const Basic = Template.bind({});
 Basic.args = {
+  isLoading: false,
   items: [
     {
       productId: '869c6d8f-1174-462f-bf31-5204c8e7f9ee',
@@ -36,5 +38,6 @@ Basic.args = {
 
 export const WithoutItems = Template.bind({});
 WithoutItems.args = {
+  isLoading: false,
   items: [],
 };

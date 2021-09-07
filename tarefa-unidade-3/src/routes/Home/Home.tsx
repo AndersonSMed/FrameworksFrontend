@@ -63,10 +63,9 @@ function LateralBar() {
 }
 
 // TODO: Create cart logic
-// TODO: Add loader when products are loading
 function Home(): JSX.Element {
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.home.filteredProducts);
+  const { filteredProducts, isLoading } = useSelector((state: RootState) => state.home);
 
   useEffect(() => {
     dispatch(loadHomeProducts());
@@ -77,7 +76,7 @@ function Home(): JSX.Element {
       <Header actions={<HeaderActions />} />
       <main className="home__main">
         <LateralBar />
-        <ProductList items={products} />
+        <ProductList items={filteredProducts} isLoading={isLoading} />
       </main>
     </div>
   );

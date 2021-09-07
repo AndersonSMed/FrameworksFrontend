@@ -33,6 +33,12 @@ it('Renders correctly', () => {
   expect(getByText('Cooler')).toBeVisible();
 });
 
+it('Should show spinner when loading', () => {
+  const { getByRole } = renderComponent({ isLoading: true });
+
+  expect(getByRole('img', { name: 'Loading' })).toBeVisible();
+});
+
 it('Should call handler with correct values', () => {
   const onAddToCart = jest.fn();
   const { queryAllByRole } = renderComponent({ onAddToCart });
