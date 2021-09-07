@@ -8,8 +8,8 @@
 
   &__content {
     box-sizing: border-box;
-    padding: 8px 16px;
-    width: 400px;
+    min-width: 450px;
+    padding-bottom: 32px !important;
   }
 
   &__title {
@@ -22,8 +22,9 @@
     display: grid;
     flex-direction: column;
     font-weight: bold;
+    font-size: 1.2rem;
     grid-gap: 16px;
-    margin: 8px 0;
+    margin-bottom: 16px;
 
     &--inline {
       align-items: center;
@@ -31,17 +32,12 @@
     }
 
     textarea {
-      width: 100% !important;
+      width: calc(100% - 8px) !important;
     }
   }
 
   &__submit-button-tooltip,
   &__submit-button {
     width: 100%;
-  }
-
-  .error-message {
-    margin-bottom: 16px;
-    text-align: center;
   }
 }

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Button, IconButton, Tooltip } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { Header, ProductEditor, ProductsTable } from '../../components';
 import { RootState } from '../../store';
@@ -11,6 +13,20 @@ import {
 } from '../../store/thunks/adminThunk';
 import './Admin.scss';
 import { IProduct } from '../../interfaces';
+
+function HeaderActions() {
+  return (
+    <Link to="/">
+      <Tooltip title="Go back to marketplace">
+        <span>
+          <IconButton aria-label="Go back to marketplace">
+            <ShoppingCartIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
+    </Link>
+  );
+}
 
 function Admin(): JSX.Element {
   const dispatch = useDispatch();
@@ -40,7 +56,7 @@ function Admin(): JSX.Element {
 
   return (
     <div className="admin">
-      <Header />
+      <Header actions={<HeaderActions />} />
       <div className="admin__wrapper">
         <h1 className="admin__title">
           Managing Products

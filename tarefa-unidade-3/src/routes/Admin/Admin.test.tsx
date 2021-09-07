@@ -59,10 +59,11 @@ const renderComponent = () => {
 };
 
 it('Renders correctly', async () => {
-  const { findByText, getByText } = renderComponent();
+  const { findByText, getByText, getByRole } = renderComponent();
 
   expect(await findByText('Sample Product')).toBeVisible();
   expect(getByText('Another Sample Product')).toBeVisible();
+  expect(getByRole('button', { name: 'Go back to marketplace' })).toBeVisible();
 });
 
 it('Should call api with correct values after create product', async () => {
