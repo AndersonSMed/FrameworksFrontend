@@ -28,8 +28,7 @@
   }
 
   &__no-image-message,
-  &__title,
-  &__description {
+  &__title {
     font-size: 1.5rem;
   }
 
@@ -44,6 +43,7 @@
   }
 
   &__description {
+    font-size: 1.2rem;
     font-weight: lighter;
   }
 
