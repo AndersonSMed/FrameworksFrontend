@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Badge, IconButton, Popover, Tooltip } from '@material-ui/core';
+import { Badge, Button, IconButton, Popover, Tooltip } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -78,6 +78,8 @@ function CartItem({ title, quantity, price, productId, onChange }: CartItemProps
 }
 
 function CartPopover({ items, anchorEl, isOpen, onClose, onChange }: CartPopoverProps) {
+  const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   return (
     <Popover
       anchorEl={anchorEl}
@@ -94,7 +96,24 @@ function CartPopover({ items, anchorEl, isOpen, onClose, onChange }: CartPopover
     >
       <div className="cart-items__popover-container">
         {items.length > 0 ? (
-          items.map((item) => <CartItem key={item.productId} onChange={onChange} {...item} />)
+          <>
+            <div className="cart-items__summary">{formatPrice(totalPrice)}</div>
+            {items.map((item) => (
+              <CartItem key={item.productId} onChange={onChange} {...item} />
+            ))}
+            <Tooltip title="This option isn't available yet">
+              <span>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className="cart-items__checkout-button"
+                  disabled
+                >
+                  Proceed to Checkout
+                </Button>
+              </span>
+            </Tooltip>
+          </>
         ) : (
           <span>Cart is empty</span>
         )}

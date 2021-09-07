@@ -51,6 +51,7 @@ it('Shows correct values after opening cart', () => {
   expect(getByText('Another Sample Item')).toBeVisible();
   expect(getByText('Total: 10')).toBeVisible();
   expect(getByText('R$50.00')).toBeVisible();
+  expect(getByText('R$90.00')).toBeVisible();
 });
 
 it('Should add handler with correct values after clicked on add item', () => {

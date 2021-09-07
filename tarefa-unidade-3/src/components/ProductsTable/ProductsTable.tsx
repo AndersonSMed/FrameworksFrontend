@@ -91,7 +91,12 @@ function ProductsTable({ items, isLoading, onEdit, onDelete }: ProductsTableProp
                     <TableCell>{formatPrice(product.price)}</TableCell>
                     <TableCell>
                       {product.imageSrc ? (
-                        <a href={product.imageSrc} target="_blank" rel="noreferrer">
+                        <a
+                          href={product.imageSrc}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="products-table__image-src"
+                        >
                           {product.imageSrc}
                         </a>
                       ) : (
@@ -114,27 +119,29 @@ function ProductsTable({ items, isLoading, onEdit, onDelete }: ProductsTableProp
                         />
                       )}
                     </TableCell>
-                    <TableCell align="center">
-                      <Tooltip title={`Edit ${product.title}`}>
-                        <span>
-                          <IconButton
-                            aria-label={`Edit ${product.title}`}
-                            onClick={openProductEditor(product)}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        </span>
-                      </Tooltip>
-                      <Tooltip title={`Delete ${product.title}`}>
-                        <span>
-                          <IconButton
-                            aria-label={`Delete ${product.title}`}
-                            onClick={handleProductDelete(product)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </span>
-                      </Tooltip>
+                    <TableCell>
+                      <div className="products-table__actions-wrapper">
+                        <Tooltip title={`Edit ${product.title}`}>
+                          <span>
+                            <IconButton
+                              aria-label={`Edit ${product.title}`}
+                              onClick={openProductEditor(product)}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
+                        <Tooltip title={`Delete ${product.title}`}>
+                          <span>
+                            <IconButton
+                              aria-label={`Delete ${product.title}`}
+                              onClick={handleProductDelete(product)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
